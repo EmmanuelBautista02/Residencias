@@ -1,0 +1,20 @@
+*{
+    margin: 0 auto;
+    font-family: Raleway-Regular;
+}
+
+header{
+    background-color: black;
+    font-family: Raleway-Regular;
+}
+
+a{
+    color: white;
+    text-decoration: none;
+
+}
+
+@font-face {
+    font-family: Raleway-Regular;
+    src: url(/fuente/Raleway-Regular.ttf);
+    }
