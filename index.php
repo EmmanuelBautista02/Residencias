@@ -15,5 +15,9 @@
     <form action="conexion.php" method="post">
         <button type="submit">ENVIAR DATOS</button>
     </form>
+    <?php
+    include_once 'includes/footer.php';
+?>
 </body>
+
 </html>
