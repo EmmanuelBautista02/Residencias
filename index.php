@@ -36,10 +36,10 @@
     </div>
   </div>
 
-  <!--<h1>PRUEBA DE CONEXION A BD LOCAL, a verrrrr</h1>
+  <h1>PRUEBA DE CONEXION A BD LOCAL, a verrrrr</h1>
     <form action="conexion.php" method="post">
         <button type="submit">ENVIAR DATOS</button>
-  </form> -->
+  </form> 
 
   <!-- Barra de inferior FOOTER-->
   <?php
