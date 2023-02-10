@@ -2,7 +2,7 @@
 try{
     $hostname="localhost";
     $username='root';
-    $password='root';
+    $password='';
     $database='sistema';
     $cn = new mysqli($hostname,$username,$password,$database);
     //mysqli_connect($hostname,$username, $password);
