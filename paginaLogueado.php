@@ -7,7 +7,7 @@ if(array_key_exists('close-session', $_POST)) {
 }
 function logout(){
     session_destroy();
-    header("Location: /");
+    header("Location: /Residencias");
 }
 ?>
 <!DOCTYPE html>

@@ -5,7 +5,7 @@ if(array_key_exists('close-session', $_POST)) {
 }
 function logout(){
     session_destroy();
-    header("Location: /");
+    header("Location: /Residencias");
 }
 require_once "conexion.php";
 if(isset($_POST["btnLogin"])){
@@ -20,9 +20,9 @@ if(isset($_POST["btnLogin"])){
         $_SESSION['contraseña'] = $row['contraseña'];
         $_SESSION['Logueado'] = true;
         echo "Conexion exitosa";
-        header("Location: /paginaLogueado.php");
+        header("Location: /Residencias/paginaLogueado.php");
     }else{
-        echo  header("Location: /? fallo=true");
+        echo  header("Location: /Residencias/? fallo=true");
     }
 }
 
