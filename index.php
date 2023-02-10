@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
     <head>
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -50,13 +50,6 @@
         </div>
     </div> <!--row-->
   </div> <!--container-->
-  
-  <!--<h1>PRUEBA DE CONEXION A BD LOCAL, a verrrrr</h1>
-    <form action="conexion.php" method="post">
-        <button type="submit">ENVIAR DATOS</button>
-  </form> -->
-
-  <!-- Barra de inferior FOOTER-->
   <?php
     include_once 'includes/footer.php';
   ?>
