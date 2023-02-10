@@ -11,7 +11,7 @@
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
           <ul class="navg navbar-nav ms-auto">
             <li class="nav-item">
-              <a class="nav-link" aria-current="page" href="#">Contactanos</a>
+              <a class="nav-link" aria-current="page" href="/Residencias/contactanos.php">Contactanos</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="/Residencias">Inicio</a>
