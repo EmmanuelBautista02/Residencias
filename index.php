@@ -19,23 +19,38 @@
   <?php
     include_once 'includes/header.php';
   ?>
-
-  <div class="centro d-flex align-items-center">
-    <div class="morado">
-      <p>Favor de iniciar sesión para agregar alguna ventana de mantenimiento</p>
-    </div>
-      <img src="img/ventana.png" class="ventana">
-  </div>
-
-  <div class="sobrepuestos">
-    <img src="img/principal2.jpg" class="principal2">
-    <div class="verde">
-      <p>Sitio web dedicado para los trabajadores del área de Control, en función de gestionar
-        las notificaciones en las ventanas de mantenimiento que realizan los trabajadores del 
-        área de operaciones. </p>
-    </div>
-  </div>
-
+  <!-- Centro del body-->
+  <div class="container">
+    <div class="row rectanguloCards row-cols-1 row-cols-md-3">
+            <!--tarjeta 1-->
+        <div class="col">
+            <div class="card morado">
+              <img src="img/lapto.jpg" class="card-img-top" alt="...">
+              <div class="card-body">
+                <p class="card-text">Favor de iniciar sesión para agregar alguna ventana de mantenimiento.</p>
+              </div>
+            </div>
+        </div>
+            <!--tarjeta bestel-->
+        <div class="col">
+            <div class="align-items-center bestel">
+              <img src="img/Bestel.svg" class="card-img-top" alt="...">
+            </div>
+        </div>
+            <!--tarjeta 3-->
+        <div class="col">
+            <div class="card verde">
+              <img src="img/poste.jpg" class="card-img-top" alt="...">
+              <div class="card-body">
+                <p class="card-text">Sitio web dedicado para los trabajadores del área de Control, en función 
+                    de gestionar las notificaciones en las ventanas de mantenimiento que realizan los trabajadores 
+                    del área de operaciones.</p>
+              </div>
+            </div>
+        </div>
+    </div> <!--row-->
+  </div> <!--container-->
+  
   <!--<h1>PRUEBA DE CONEXION A BD LOCAL, a verrrrr</h1>
     <form action="conexion.php" method="post">
         <button type="submit">ENVIAR DATOS</button>
