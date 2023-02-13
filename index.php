@@ -19,37 +19,50 @@
   <?php
     include_once 'includes/header.php';
   ?>
-  <!-- Centro del body-->
-  <div class="container">
-    <div class="row rectanguloCards row-cols-1 row-cols-md-3">
-            <!--tarjeta 1-->
-        <div class="col">
-            <div class="card morado">
-              <img src="img/lapto.jpg" class="card-img-top" alt="...">
-              <div class="card-body">
-                <p class="card-text">Favor de iniciar sesión para agregar alguna ventana de mantenimiento.</p>
+   <!-- Centro del body-->
+   <div class="row g-0 loginFondo">
+        <div class="col-lg-7 d-none d-lg-block">
+          <div class="imgPrincipal">
+              <div class="container">
+                <h1>Control de notificaciones de ventanas de mantenimiento</h1>
               </div>
-            </div>
+          </div>
         </div>
-            <!--tarjeta bestel-->
-        <div class="col">
-            <div class="align-items-center bestel">
-              <img src="img/Bestel.svg" class="card-img-top" alt="...">
-            </div>
-        </div>
-            <!--tarjeta 3-->
-        <div class="col">
-            <div class="card verde">
-              <img src="img/poste.jpg" class="card-img-top" alt="...">
-              <div class="card-body">
-                <p class="card-text">Sitio web dedicado para los trabajadores del área de Control, en función 
-                    de gestionar las notificaciones en las ventanas de mantenimiento que realizan los trabajadores 
-                    del área de operaciones.</p>
-              </div>
+        <div class="col-lg-5 p-5 min-vh-100">
+            <div class="t1 mt-5"><h1>Bienvenido</h1></div>
+            <div class="t2 mt-3"><h2>Iniciar sesión</h2></div>
+            <div class="mb-auto align-self-center">
+              <form action="sesion.php" method="POST">
+                <div>
+                  <label for="exampleInputEmail1" class="form-label">Email</label>
+                </div>
+                <div class="input-group mb-3">
+                  <div class="input-group-text"><img src="img/usuario2.png" alt="" class="usuario"></div>
+                  <input type="email" class="form-control" placeholder="Ingresa tu email" id="email" name="email" aria-describedby="emailHelp">
+                </div>
+                <div>
+                  <label for="exampleInputPassword1" class="form-label">Contraseña</label>
+                </div>
+                <div class="input-group mb-3">
+                  <div class="input-group-text"><img src="img/candado.png" alt="" class="usuario"></div>
+                  <input type="password" class="form-control" placeholder="Ingresa tu contraseña" id="password" name="password">
+                </div>
+                <div class="boton">
+                  <button type="submit" id="btnLogin" name="btnLogin" class="btn btn-verde w-50">Iniciar sesión</button>
+                  <?php
+                  if (isset($_GET["fallo"]) && $_GET["fallo"] == 'true') {
+                        echo "<div style='color:red'>Usuario o contraseña invalido </div>";
+                    }
+                  ?>
+                </div>
+                <div id="emailHelp" class="form-text linkContactanos w-100 mt-5">¿Has olvidado tu contraseña?
+                  <p>Favor de comunicarse con el administrador en la pestaña <a href="contactanos.php">"Contactanos"</a></p>
+                </div>
+              </form>
             </div>
         </div>
     </div> <!--row-->
-  </div> <!--container-->
+
   <?php
     include_once 'includes/footer.php';
   ?>

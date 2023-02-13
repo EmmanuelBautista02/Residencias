@@ -1,4 +1,4 @@
-<footer class="col mt-1">
+<footer class="col g-0">
     <h6 class="text-center py-2">
         &copy; 2023 Derechos reservados
     </h6>
