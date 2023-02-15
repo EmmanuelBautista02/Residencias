@@ -2,6 +2,7 @@ body {
     font-family: 'Montserrat';
     margin: 0;
     background-color: #ffffff;
+    height: 80vh;
 }
 
 /*a{
@@ -50,12 +51,6 @@ body {
     display: flex;
 }
 
-.boton_ingresar{
-    background-color: black;
-    color: white;
-    margin: 0 auto;
-}
-
 /*-------------------------Codigo del Body-------------------------*/
 .Bienvenido p{
     color: rgb(0, 0, 0);
@@ -65,7 +60,7 @@ body {
     justify-content: center;
     display: flex;
 }
-/*------------------------------*/
+
 .loginFondo{
     background-color: #C3B1D1;
     position: relative;
@@ -148,10 +143,4 @@ form{
 
 .input-group-text{
     background-color: #3A0092;
-}
-
-.boton_ingresar{
-    background-color: black;
-    color: white;
-    margin: 0 auto;
 }

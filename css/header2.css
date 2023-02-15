@@ -1,0 +1,37 @@
+.navbar-brand > img{
+    width: 100px;
+    left: 80px;
+    padding-left: 5%;
+}
+
+.nav{
+    position: fired;
+    width: 100%;
+    background-color: #000000;
+}
+
+.navbar-toggler{
+    background-color: #ffffff;
+}
+
+.navg a{
+    color: rgb(255, 255, 255)!important;
+    font-family: 'Montserrat';
+    font-size: 16px;
+    margin-left: 20px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.dropdown-menu a{
+    padding: 0%;
+    margin: 0%;
+    color: rgba(0, 0, 0, 0.468)!important;;
+}
+
+.dropdown-menu{
+    background-color: #ffffff;
+}
+
+
+

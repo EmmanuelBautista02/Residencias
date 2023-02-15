@@ -20,7 +20,7 @@ if(isset($_POST["btnLogin"])){
         $_SESSION['contraseña'] = $row['contraseña'];
         $_SESSION['Logueado'] = true;
         echo "Conexion exitosa";
-        header("Location: /Residencias/paginaLogueado.php");
+        header("Location: /Residencias/principal/principal.php");
     }else{
         echo  header("Location: /Residencias/? fallo=true");
     }
