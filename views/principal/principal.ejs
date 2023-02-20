@@ -1,0 +1,64 @@
+<%- include('../includes/header2.ejs',{name:nombre, login:sesion}) %>
+<div class="contenido"> 
+    <link rel="stylesheet" href="/resources/css/Principal.css" type="text/css">
+    <div class="titulo">
+        <h2>Control de notificaciones de ventanas de mantenimiento</h2>
+    </div>
+    <div class="container"> <!-- Cards-->
+        <div class="row gy-3 row-cols-1 row-cols-md-3">
+                <!--tarjeta 1-->
+            <div class="col-md-4">
+                <div class="card h-100">
+                    <img src="../resources/img/lapto.jpg" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h3>Actualizar Base de Datos</h3>
+                        <p class="card-text">Esta opción permite al usuario actualizar los servicios de 
+                            los clientes que maneja.</p>
+                    </div>
+                    <div class="card-footer">
+                        <div class="boton">
+                            <a href="/actualizarBD" class="btn btn-gris w-50">Actualizar</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                <!--tarjeta 2-->
+            <div class="col-md-4">
+                <div class="card h-100">
+                    <img src="../resources/img/poste.jpg" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h3>Crear Notificación de Ventana</h3>
+                        <p class="card-text">Esta opción permite al usuario crear una notificacion de 
+                            ventana cuando se realizará algun mantenimiento preventivo, correctivo o mandatoria.</p>
+                    </div>
+                    <div class="card-footer">
+                        <div class="boton">
+                            <a href="/crearN" class="btn btn-gris w-50">Crear notificación</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                <!--tarjeta 3-->
+            <div class="col-md-4">
+                <div class="card h-100">
+                    <img src="../resources/img/redes.jpg" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h3>Notificaciones</h3>
+                        <p class="card-text">En esta opción el usuario podrá visualizar las notificaciones que 
+                            tanto él como otros usuarios han agendado así como sus detalles de acuerdo al día en 
+                            que fue creado.</p>
+                    </div>
+                    <div class="card-footer">
+                        <div class="boton">
+                            <a href="/notificaciones" class="btn btn-gris w-50">Notificaciones</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> <!--row-->
+    </div> <!--container-->
+</div>
+<%- include('../includes/footer.ejs') %> 
+
+
+
