@@ -1,0 +1,35 @@
+/*section{
+    padding: 0%;
+    background-color: #E2DCC8;
+    margin: 0%;
+}*/
+
+.dasboard{ 
+    background-color: #E2DCC8;
+    margin: 0%;
+}
+
+.titulo{ 
+    background-color: #828080;
+}
+
+.titulo h3{
+    font-family: 'Montserrat';
+    text-align: center;
+    font-weight: bold;
+    color: #ffffff;
+    margin: 0%;
+}
+
+.titulo p{
+    font-family: 'Montserrat';
+    text-align: center;
+    font-weight: bold;
+    color: #ffffff;
+    margin: 0%;
+}
+
+.fa-solid{
+    margin: 1%;
+    font-size: medium;
+}

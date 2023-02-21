@@ -1,3 +1,125 @@
 <div>
-    <H1>ACTUALIZAR</H1>
+    <link rel="stylesheet" href="../../resources/css/actualizar.css" type="text/css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" 
+    integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <div class="titulo">
+            <p>Control de notificaciones de ventana para mantenimiento</p>
+            <h3>Actualización de base de datos de sitios</h3>
+    </div>
+    <!--Barra lateral-->
+    <%- include('../includes/lateral.ejs') %>
+    <!--Dasboard-->     
+    <section class="col-12 col-sm-12 col-md-10 col-xl-10 p-0 dasboard">
+        <div class="container-fluid ">
+            <div class="row">
+                <div class="col-6">
+                    <label for="tituloDeSeccion" class="form-label">Seleccion de proveedor</label>
+                </div>
+                <div class="col-6 justify-content-center">
+                    <label for="tituloDeSeccion" class="form-label">Ingresar nuevos circuitos al proveedor</label>
+                </div>
+            </div>
+            <div class="row mt-1">
+                <div class="col-6">
+                    <div>
+                        <label for="BuscarElProveedor" class="form-label">Buscar proveedor:</label>
+                    </div>
+                    <select class="form-select form-select-sm w-75 m-2" aria-label=" .form-select-lg">
+                        <option selected>Seleccione el proveedor</option>
+                        <option value="1">Uno</option>
+                        <option value="2">Dos</option>
+                        <option value="3">Tres</option>
+                    </select>
+                    <div>
+                        <label for="BuscarElCircuito" class="form-label">Buscar circuito:</label>
+                    </div>
+                    <form class="d-flex">
+                        <input class="form-control form-control-sm w-75 m-2" type="search" placeholder="Buscar" aria-label="Search">
+                            <button class="btn p-0" type="submit">
+                                <i class="fa-solid fa-magnifying-glass"></i>
+                            </button>
+                    </form>
+                    <div class="row">
+                        <div class="col-4">
+                            <button type="button" class="btn btn-outline-secondary btn-sm">Listar servicios</button>
+                        </div>
+                        <div class="col-4">
+                            <button type="button" class="btn btn-outline-secondary btn-sm">Agregar circuito</button>
+                        </div>
+                        <div class="col-4">
+                            <button type="button" class="btn btn-outline-secondary btn-sm">Inhabilitar circuito</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="card card-md">
+                        <div class="card-header">
+                          <h6 class="m-0">Proveedor y sus circuitos</h6>
+                        </div>
+                        <div class="card-body p-1">
+                            <ul class="list-group">
+                                <li class="list-group-item disabled" aria-disabled="true">Aqui iría el nombre del proveedor elegido</li>
+                                <li class="list-group-item">
+                                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                                    Primer circuito
+                                </li>
+                                <li class="list-group-item">
+                                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                                    Segundo circuito
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row">
+                <!--pruba de tabla de emma-->
+                <div class="container-fluid">
+                    <div class="row mt-5">
+                        <div class="col-md-7">
+                            <table class="table table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Servicio</th>
+                                        <th>Circuito ID</th>
+                                        <th>M6</th>
+                                        <th>ID del activo</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                   
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-md-5">
+                            <div class="card">
+                                <div class="card-body">
+                                    <form action="/add" method="post">
+                                        <div class="form-group">
+                                            <input type="text" name="nombre" id="name" class="form-control" placeholder="Nombre">
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" name="direccion" id="name" class="form-control"
+                                                placeholder="Direccion">
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" name="telefono" id="name" class="form-control"
+                                                placeholder="Telefono">
+                                        </div>
+                                        <button type="submit" class="btn btn-success">GUARDAR</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+     
+    </div><!--Div de cerrar row de contenido de lateral-->
+</div>
+<%- include('../includes/footer.ejs') %>
 </div>
