@@ -10,5 +10,7 @@ router.get('/contactanos',controller.contactanos);
 router.get('/actualizarBD', controller.actualizarBD);
 router.get('/crearN', controller.crearN);
 router.get('/notificaciones', controller.notificaciones);
+router.post('/buscarProveedor',controller.buscarProveedor);
+router.post('/buscarCircuito', controller.buscarCircuito);
 
 module.exports = router;

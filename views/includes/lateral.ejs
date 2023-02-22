@@ -41,7 +41,7 @@
             </li>
             <li>
               <button class="btn d-inline-flex align-items-center collapsed" data-bs-toggle="collapse" aria-expanded="false" data-bs-target="#contents-collapse" aria-controls="contents-collapse">Contents</button>
-              <ul class="list-unstyled ps-3 collapse" id="contents-collapse">
+              <ul class="list-unstyled ps-3 collapse" id="contents-collapse" value="">
                 <li><a class="d-inline-flex align-items-center rounded" href="#typography">Typography</a></li>
                 <li><a class="d-inline-flex align-items-center rounded" href="#images">Images</a></li>
                 <li><a class="d-inline-flex align-items-center rounded" href="#tables">Tables</a></li>
@@ -50,7 +50,11 @@
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link active dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  
+                  <% if (login) { %>
+                    <%- name %>
+                    <% }else { %>
+                    Usuario
+                    <% } %>
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                   <li><a class="dropdown-item" href="#">LO QUE SEA</a></li>

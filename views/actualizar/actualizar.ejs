@@ -7,7 +7,7 @@
             <h3>Actualización de base de datos de sitios</h3>
     </div>
     <!--Barra lateral-->
-    <%- include('../includes/lateral.ejs') %>
+    <%- include('../includes/lateral.ejs',{name:nombre, login:sesion}) %>
     <!--Dasboard-->     
     <section class="col-12 col-sm-12 col-md-10 col-xl-10 p-0 dasboard">
         <div class="container-fluid ">
@@ -21,23 +21,29 @@
             </div>
             <div class="row mt-1">
                 <div class="col-6">
+                    <form action="/buscarProveedor" method="post">
                     <div>
                         <label for="BuscarElProveedor" class="form-label">Buscar proveedor:</label>
                     </div>
-                    <select class="form-select form-select-sm w-75 m-2" aria-label=" .form-select-lg">
-                        <option selected>Seleccione el proveedor</option>
-                        <option value="1">Uno</option>
-                        <option value="2">Dos</option>
-                        <option value="3">Tres</option>
+                    <select class="form-select form-select-sm w-75 m-2" aria-label=" .form-select-lg" name="proveedor" id="proveedor">
+                        <option selected disabled>Seleccione el proveedor</option>
+                        <% if (data) { %>
+                        <% for (var i=0; i < data.length; i++) {%>
+                            <option value="<%= data[i].id_prov %>" label="<%= data[i].nombre_prov %>" ><%= data[i].nombre_prov %></option>
+                            <% } %>
+                            <% } %>
                     </select>
+                    <input type="submit" value="Seleccionar">
+                </form>
                     <div>
                         <label for="BuscarElCircuito" class="form-label">Buscar circuito:</label>
                     </div>
-                    <form class="d-flex">
-                        <input class="form-control form-control-sm w-75 m-2" type="search" placeholder="Buscar" aria-label="Search">
+                    <form class="d-flex" action="/buscarCircuito" method="post">
+                        <input class="form-control form-control-sm w-75 m-2" type="search" placeholder="Buscar" aria-label="Search" id="circuito" name="circuito" value="<%= cir %>">
                             <button class="btn p-0" type="submit">
                                 <i class="fa-solid fa-magnifying-glass"></i>
                             </button>
+                            <%= mensaje %>
                     </form>
                     <div class="row">
                         <div class="col-4">
@@ -58,7 +64,9 @@
                         </div>
                         <div class="card-body p-1">
                             <ul class="list-group">
-                                <li class="list-group-item disabled" aria-disabled="true">Aqui iría el nombre del proveedor elegido</li>
+                                <li class="list-group-item disabled" aria-disabled="true">
+                                        <%= proveedor %>
+                                </li>
                                 <li class="list-group-item">
                                     <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
                                     Primer circuito

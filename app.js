@@ -25,7 +25,6 @@ app.use(session({
 app.set('view engine', 'ejs');
 
 
-
 //routes
 app.use('/',router);
 
