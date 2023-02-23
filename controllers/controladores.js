@@ -3,7 +3,7 @@ const connection = require('../database/db');
 const controller = {};
 let id_Usuario = null;
 let idProveedor = null;
-let nombreProveedor=null;
+let nombreProveedor = null;
 let idCircuito = null;
 let proveedorSeleccionado = false;
 let datos = {};
@@ -64,6 +64,13 @@ controller.cerrarSesion = (req, res) => {
     res.redirect('/');*/
     req.session.destroy(() => {
         res.redirect('/');
+        id_Usuario = null;
+        idProveedor = null;
+        nombreProveedor = null;
+        idCircuito = null;
+        proveedorSeleccionado = false;
+        datos = {};
+
     })
 }
 
@@ -85,7 +92,7 @@ controller.actualizarBD = (req, res, msg) => {
                         data: results,
                         proveedor: nombreProveedor,
                         mensaje: "",
-                        cir:"",
+                        cir: "",
                         login: true,
                         name: req.session.name,
                         nombre: req.session.name,
@@ -97,7 +104,7 @@ controller.actualizarBD = (req, res, msg) => {
                         data: results,
                         proveedor: "Proveedor seleccionado",
                         mensaje: "",
-                        cir:"",
+                        cir: "",
                         login: true,
                         name: req.session.name,
                         nombre: req.session.name,
@@ -115,7 +122,7 @@ controller.actualizarBD = (req, res, msg) => {
 controller.buscarProveedor = (req, res) => {
     idProveedor = req.body.proveedor;
     connection.query('SELECT nombre_prov FROM proveedor where id_prov = ?', [idProveedor], (error, results) => {
-        nombreProveedor=results[0].nombre_prov;
+        nombreProveedor = results[0].nombre_prov;
     });
     res.redirect('/actualizarBD');
 }
@@ -126,12 +133,12 @@ controller.buscarCircuito = (req, res) => {
             proveedor: "Proveedor seleccionado",
             data: datos,
             mensaje: "FAVOR DE SELECCIONAR UN PROVEEDOR",
-            cir:"",
+            cir: "",
             login: true,
             name: req.session.name,
             nombre: req.session.name,
             sesion: true
-            
+
         });
     } else if (proveedorSeleccionado == true) {
         if (req.body.circuito.length === 0) {
@@ -139,7 +146,7 @@ controller.buscarCircuito = (req, res) => {
                 proveedor: nombreProveedor,
                 data: datos,
                 mensaje: "FAVOR DE ESCRIBIR UN CIRCUITO",
-                cir:"",
+                cir: "",
                 login: true,
                 name: req.session.name,
                 nombre: req.session.name,
@@ -157,7 +164,7 @@ controller.buscarCircuito = (req, res) => {
                             proveedor: nombreProveedor,
                             data: datos,
                             mensaje: "NO EXISTE NINGUN CIRCUITO CON ESA ID, PRESIONE 'Agregar Circuito' para agregarlo",
-                            cir:idCircuito,
+                            cir: idCircuito,
                             login: true,
                             name: req.session.name,
                             nombre: req.session.name,
@@ -168,7 +175,7 @@ controller.buscarCircuito = (req, res) => {
                             proveedor: nombreProveedor,
                             data: datos,
                             mensaje: "EL CIRCUITO SELECCIONADO SI EXISTE",
-                            cir:idCircuito,
+                            cir: idCircuito,
                             login: true,
                             name: req.session.name,
                             nombre: req.session.name,
