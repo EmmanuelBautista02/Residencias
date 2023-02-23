@@ -33,3 +33,16 @@
     margin: 1%;
     font-size: medium;
 }
+
+.card{
+    width: 100%;
+}
+
+.card-header{
+    font-weight:bold;
+}
+
+tbody{
+    font-weight: 100;
+    font-size: smaller;
+}
