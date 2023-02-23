@@ -12,5 +12,9 @@ router.get('/crearN', controller.crearN);
 router.get('/notificaciones', controller.notificaciones);
 router.post('/buscarProveedor',controller.buscarProveedor);
 router.post('/buscarCircuito', controller.buscarCircuito);
+router.get('/listarServicios/:id', controller.listarServicios);
+router.get('/listarServicios/', controller.listarServiciosNoExisten);
+router.get('/inhabilitarCircuito/:id', controller.inhabilitarCircuito);
+router.post('/agregarCircuito', controller.agregarCircuito);
 
 module.exports = router;
