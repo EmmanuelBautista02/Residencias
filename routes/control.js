@@ -16,5 +16,9 @@ router.get('/listarServicios/:id', controller.listarServicios);
 router.get('/listarServicios/', controller.listarServiciosNoExisten);
 router.get('/inhabilitarCircuito/:id', controller.inhabilitarCircuito);
 router.post('/agregarCircuito', controller.agregarCircuito);
+router.get('/paginaAnteriorCircuitos', controller.paginaAnteriorCircuitos);
+router.get('/paginaSiguienteCircuitos', controller.paginaSiguienteCircuitos);
+router.post('/agregarServicio',controller.agregarServicio);
+router.get('/eliminarServicio/:id', controller.eliminarServicio);
 
 module.exports = router;

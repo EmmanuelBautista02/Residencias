@@ -1,3 +1,6 @@
+<script src = 
+"https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"> 
+    </script> 
 <div>
     <link rel="stylesheet" href="../../resources/css/actualizar.css" type="text/css">
     <!--link de plataforma de donde vienen los icons-->
@@ -21,11 +24,12 @@
                                     <div>
                                         <label for="BuscarElProveedor" class="form-label">Seleccionar proveedor:</label>
                                     </div>
-                                    <select class="form-select form-select-sm w-100" aria-label=" .form-select-lg" name="proveedor" id="proveedor">
+                                    <select class="form-select form-select-sm w-100" aria-label=" .form-select-lg"
+                                        name="proveedor" id="proveedor">
                                         <% if (data) { %>
                                             <% for (var i=0; i < data.length; i++) {%>
                                                 <option value="<%= data[i].id_prov %>"
-                                                    label="<%= data[i].nombre_prov %>" >
+                                                    label="<%= data[i].nombre_prov %>">
                                                     <%= data[i].nombre_prov %>
                                                 </option>
                                                 <% } %>
@@ -40,7 +44,8 @@
                                 <form class="d-flex m-0" action="/buscarCircuito" method="post">
                                     <div class="input-group w-100">
                                         <input class="form-control form-control-sm w-80 " type="number"
-                                            placeholder="Buscar" aria-label="Search" id="circuito" name="circuito" value="<%= cir %>" >
+                                            placeholder="Buscar" aria-label="Search" id="circuito" name="circuito"
+                                            value="<%= cir %>">
                                         <button class="btn btn-outline-secondary btn-group p-0 w-20" type="submit">
                                             <i class="bi bi-search p-1"></i>
                                         </button>
@@ -49,8 +54,9 @@
                                         <%= mensaje %>
                                             <% } %>
                                 </form>
-                                    <a href="/listarServicios/<%= cir %>" class="btn btn-outline-secondary btn-sm m-0 mt-2">Listar
-                                        servicios</a>
+                                <a href="/listarServicios/<%= cir %>"
+                                    class="btn btn-outline-secondary btn-sm m-0 mt-2">Listar
+                                    servicios</a>
                             </div>
                         </div>
                     </div>
@@ -75,20 +81,21 @@
                                         </div>
                                         <div class="col-7 align-self-center">
                                             <form action="/agregarCircuito" method="post">
-                                            <label class="form-label p-0 m-0">Ingresar nuevo circuito</label>
-                                            <div class="input-group">
-                                                <input type="number" class="form-control form-control-sm"
-                                                    placeholder="ID" required name="id" id="id">
+                                                <label class="form-label p-0 m-0">Ingresar nuevo circuito</label>
+                                                <div class="input-group">
+                                                    <input type="number" class="form-control form-control-sm"
+                                                        placeholder="ID" required name="id" id="id">
                                                     <input type="text" class="form-control form-control-sm"
-                                                    placeholder="Nombre" required name="nombre" id="nombre">
-                                                    <input type="submit" value="Agregar" class="btn btn-outline-secondary btn-sm" id="button-addon2">
-                                            </div>
-                                            </form> 
+                                                        placeholder="Nombre" required name="nombre" id="nombre">
+                                                    <input type="submit" value="Agregar"
+                                                        class="btn btn-outline-secondary btn-sm" id="button-addon2" onclick="return confirm('¿Desea agregar este circuito?')">
+                                                </div>
+                                            </form>
                                         </div>
                                     </div>
                                     <hr class="p-0 m-0">
                                     <div class="table-responsive" style="background-color: #fff;">
-                                        <table class="table m-0">
+                                        <table class="table m-0" id="TABLA">
                                             <thead class="text-center bg-light">
                                                 <tr>
                                                     <th>ID del Circuito</th>
@@ -108,12 +115,16 @@
                                                                 <%= dataCircuito[i].nombre_cir %>
                                                             </td>
                                                             <td class="p-0 align-items-center text-center">
-                                                                    <a href="/inhabilitarCircuito/<%= dataCircuito[i].id_cir %>" class="btn m-1 btn-danger btn-sm btn-group p-0 w-20"><i class="bi bi-trash-fill p-1"></i></a>
-                                                                    
-                                                                </td>
+                                                                <a href="/inhabilitarCircuito/<%= dataCircuito[i].id_cir %>" onclick="return confirm('¿Desea inhabilitar este circuito?')"
+                                                                    class="btn m-1 btn-danger btn-sm btn-group p-0 w-20"><i
+                                                                        class="bi bi-trash-fill p-1"></i></a>
+
+                                                            </td>
                                                             <td class="p-0 align-items-center text-center">
-                                                                    <a href="/listarServicios/<%= dataCircuito[i].id_cir %>" class="btn m-1 btn-warning btn-sm btn-group p-0 w-20"> <i class="bi bi-list-ul p-1"></i></a>
-                                                                </td>
+                                                                <a href="/listarServicios/<%= dataCircuito[i].id_cir %>"
+                                                                    class="btn m-1 btn-warning btn-sm btn-group p-0 w-20">
+                                                                    <i class="bi bi-list-ul p-1"></i></a>
+                                                            </td>
                                                         </tr>
                                                         <% } %>
                                                             <% } %>
@@ -121,24 +132,21 @@
                                         </table>
                                     </div>
                                 </ul>
-                            </div>  
+                            </div>
                         </div>
                         <nav> <!--paginacion de la tabla-->
-                            <ul class="pagination pagination-sm justify-content-end m-0">
-                              <li class="page-item">
-                                <a class="page-link" href="#" style="color: #000000;">
-                                  <span aria-hidden="true">&laquo;</span>
-                                </a>
-                              </li>
-                              <li class="page-item"><a class="page-link" href="#" style="color: #000000;">1</a></li>
-                              <li class="page-item"><a class="page-link" href="#" style="color: #000000;">2</a></li>
-                              <li class="page-item"><a class="page-link" href="#" style="color: #000000;">3</a></li>
-                              <li class="page-item">
-                                <a class="page-link" href="#" aria-label="Next" style="color: #000000;">
-                                  <span aria-hidden="true">&raquo;</span>
-                                </a>
-                              </li>
-                            </ul>
+                           <!--- <ul class="pagination pagination-sm justify-content-end m-0">
+                                <li class="page-item">
+                                    <a class="page-link" href="/paginaAnteriorCircuitos" style="color: #000000;">
+                                        <span aria-hidden="true">&laquo;</span>
+                                    </a>
+                                </li>
+                                <li class="page-item">
+                                    <a class="page-link" href="/paginaSiguienteCircuitos" aria-label="Next" style="color: #000000;">
+                                        <span aria-hidden="true">&raquo;</span>
+                                    </a>
+                                </li>
+                            </ul>-->
                         </nav>
                     </div>
                 </div>
@@ -147,52 +155,58 @@
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-md-7 p-1"><!--Tabla de listado de servicios-->
-                                <div class="table-responsive" style="background-color: #fff;">   
-                                <table class="table table-bordered border-dark table-hover m-0">
-                                    <thead class="text-center bg-light">
-                                        <tr>
-                                            <th>Servicio</th>
-                                            <th>Circuito ID</th>
-                                            <th>M6</th>
-                                            <th>ID del activo</th>
-                                            <th>Opciones</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <% if(dataServicio) {%>
-                                            <% for (var i=0; i < dataServicio.length; i++) {%>
+                                <div class="table-responsive" style="background-color: #fff;">
+                                    <table class="table table-bordered border-dark table-hover m-0">
+                                        <thead class="text-center bg-light">
                                             <tr>
-                                                <td><%= dataServicio[i].id_serv %></td>
-                                                <td><%= dataServicio[i].id_cir %></td>
-                                                <td><%= dataServicio[i].m6 %></td>
-                                                <td><%= dataServicio[i].id_act %></td>
-                                                <td class="p-0 align-items-center text-center">
-                                                    <a class="btn m-1 btn-danger btn-sm btn-group p-0 w-20"><i class="bi bi-trash-fill"></i></a>
-                                                    <a class="btn m-1 btn-primary btn-sm btn-group p-0 w-20"><i class="bi bi-pencil-square"></i></a>
-                                                </td>
-                                            
+                                                <th>Servicio</th>
+                                                <th>Circuito ID</th>
+                                                <th>M6</th>
+                                                <th>ID del activo</th>
+                                                <th>Opciones</th>
                                             </tr>
-                                        <% } %>
-                                            <% } %>
-                                    </tbody>
-                                </table>
+                                        </thead>
+                                        <tbody>
+                                            <% if(dataServicio) {%>
+                                                <% for (var i=0; i < dataServicio.length; i++) {%>
+                                                    <tr>
+                                                        <td>
+                                                            <%= dataServicio[i].id_serv %>
+                                                        </td>
+                                                        <td>
+                                                            <%= dataServicio[i].id_cir %>
+                                                        </td>
+                                                        <td>
+                                                            <%= dataServicio[i].m6 %>
+                                                        </td>
+                                                        <td>
+                                                            <%= dataServicio[i].id_act %>
+                                                        </td>
+                                                        <td class="p-0 align-items-center text-center">
+                                                            <a class="btn m-1 btn-danger btn-sm btn-group p-0 w-20" href="/eliminarServicio/<%= dataServicio[i].id_serv %>" onclick="return confirm('¿Desea borrar el servicio <%= dataServicio[i].id_serv %>?')"><i
+                                                                    class="bi bi-trash-fill"></i></a>
+                                                            <a class="btn m-1 btn-primary btn-sm btn-group p-0 w-20" href="#"><i class="bi bi-pencil-square"></i></a>
+                                                        </td>
+
+                                                    </tr>
+                                                    <% } %>
+                                                        <% } %>
+                                        </tbody>
+                                    </table>
                                 </div>
                                 <nav> <!--paginacion de la tabla-->
-                                    <ul class="pagination pagination-sm justify-content-end m-0">
-                                      <li class="page-item">
-                                        <a class="page-link" href="#" style="color: #000000;">
-                                          <span aria-hidden="true">&laquo;</span>
-                                        </a>
-                                      </li>
-                                      <li class="page-item"><a class="page-link" href="#" style="color: #000000;">1</a></li>
-                                      <li class="page-item"><a class="page-link" href="#" style="color: #000000;">2</a></li>
-                                      <li class="page-item"><a class="page-link" href="#" style="color: #000000;">3</a></li>
-                                      <li class="page-item">
+                                    <!--<ul class="pagination pagination-sm justify-content-end m-0">
+                                        <li class="page-item">
+                                            <a class="page-link" href="#" style="color: #000000;">
+                                                <span aria-hidden="true">&laquo;</span>
+                                            </a>
+                                        </li>
+
                                         <a class="page-link" href="#" aria-label="Next" style="color: #000000;">
-                                          <span aria-hidden="true">&raquo;</span>
+                                            <span aria-hidden="true">&raquo;</span>
                                         </a>
-                                      </li>
-                                    </ul>
+                                        </li>
+                                    </ul>-->
                                 </nav>
                             </div>
                             <div class="col-md-5 p-1"><!--Seccion opciones a servicios-->
@@ -202,39 +216,42 @@
                                         <ul class="nav nav-tabs" id="myTab" role="tablist">
                                             <li class="nav-item" role="presentation">
                                                 <button class="nav-link active" id="agregar-tab" data-bs-toggle="tab"
-                                                    data-bs-target="#agregar" type="button" role="tab" style="color: #000000;">
+                                                    data-bs-target="#agregar" type="button" role="tab"
+                                                    style="color: #000000;">
                                                     Agregar</button>
                                             </li>
                                             <li class="nav-item" role="presentation">
                                                 <button class="nav-link" id="modificar-tab" data-bs-toggle="tab"
-                                                    data-bs-target="#modificar" type="button" role="tab" style="color: #000000;">
+                                                    data-bs-target="#modificar" type="button" role="tab"
+                                                    style="color: #000000;">
                                                     Modificar</button>
                                             </li>
-                                            <li class="nav-item" role="presentation">
+                                            <!--<li class="nav-item" role="presentation">
                                                 <button class="nav-link" id="eliminar-tab" data-bs-toggle="tab"
-                                                    data-bs-target="#eliminar" type="button" role="tab" style="color: #000000;">
+                                                    data-bs-target="#eliminar" type="button" role="tab"
+                                                    style="color: #000000;">
                                                     Eliminar</button>
-                                            </li>
+                                            </li>-->
                                         </ul>
                                         <div class="tab-content" id="myTabContent">
                                             <div class="tab-pane fade show active" id="agregar" role="tabpanel"
                                                 aria-labelledby="agregar-tab"><!--Opcion agrear servicio-->
-                                                <form class="m-0" action="/add" method="post">
+                                                <form class="m-0" action="/agregarServicio" method="post">
                                                     <div class="form-group">
                                                         <input type="text" name="servicio" id="servicio"
-                                                            class="form-control form-control-sm" placeholder="Ingresar servicio">
+                                                            class="form-control form-control-sm"
+                                                            placeholder="Ingresar servicio" required>
                                                     </div>
+                                                    
                                                     <div class="form-group">
-                                                        <input type="text" name="circuito" id="servicio"
-                                                            class="form-control form-control-sm" placeholder="Ingresar circuito ID">
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <input type="text" name="m6" id="m6" class="form-control form-control-sm"
-                                                            placeholder="Ingresar M6">
+                                                        <input type="text" name="m6" id="m6"
+                                                            class="form-control form-control-sm"
+                                                            placeholder="Ingresar M6" required>
                                                     </div>
                                                     <div class="form-group">
                                                         <input type="text" name="activo" id="activo"
-                                                            class="form-control form-control-sm" placeholder="Ingresar ID del activo">
+                                                            class="form-control form-control-sm"
+                                                            placeholder="Ingresar ID del activo" required>
                                                     </div>
                                                     <button type="button submit"
                                                         class="btn btn-outline-secondary btn-sm m-0 mt-2">Guardar</button>
@@ -243,44 +260,55 @@
                                             <div class="tab-pane fade" id="modificar" role="tabpanel"
                                                 aria-labelledby="moficar-tab"><!--Opcion modificar servicio-->
                                                 <div class="input-group w-100">
-                                                    <button class="btn btn-outline-secondary btn-group p-0 w-20" type="submit">
+                                                    <button class="btn btn-outline-secondary btn-group p-0 w-20"
+                                                        type="submit">
                                                         <i class="bi bi-pencil-square p-2"></i>
                                                     </button>
-                                                    <input type="text" class="form-control form-control-sm w-80" placeholder="Aqui va el dato editar servicio">
-                                                </div>   
-                                                <div class="input-group w-100">
-                                                    <button class="btn btn-outline-secondary btn-group p-0 w-20" type="submit">
-                                                        <i class="bi bi-pencil-square p-2"></i>
-                                                    </button>
-                                                    <input type="text" class="form-control form-control-sm w-80" placeholder="Aqui va el dato a editar circuito id">
-                                                </div>  
-                                                <div class="input-group w-100">
-                                                    <button class="btn btn-outline-secondary btn-group p-0 w-20" type="submit">
-                                                        <i class="bi bi-pencil-square p-2"></i>
-                                                    </button>
-                                                    <input type="text" class="form-control form-control-sm w-80" placeholder="Aqui va el dato a editar M6">
+                                                    <input type="text" class="form-control form-control-sm w-80"
+                                                        placeholder="Aqui va el dato editar servicio">
                                                 </div>
                                                 <div class="input-group w-100">
-                                                    <button class="btn btn-outline-secondary btn-group p-0 w-20" type="submit">
+                                                    <button class="btn btn-outline-secondary btn-group p-0 w-20"
+                                                        type="submit">
                                                         <i class="bi bi-pencil-square p-2"></i>
                                                     </button>
-                                                    <input type="text" class="form-control form-control-sm w-80" placeholder="Aqui va el dato a editar ID activo">
+                                                    <input type="text" class="form-control form-control-sm w-80"
+                                                        placeholder="Aqui va el dato a editar circuito id">
+                                                </div>
+                                                <div class="input-group w-100">
+                                                    <button class="btn btn-outline-secondary btn-group p-0 w-20"
+                                                        type="submit">
+                                                        <i class="bi bi-pencil-square p-2"></i>
+                                                    </button>
+                                                    <input type="text" class="form-control form-control-sm w-80"
+                                                        placeholder="Aqui va el dato a editar M6">
+                                                </div>
+                                                <div class="input-group w-100">
+                                                    <button class="btn btn-outline-secondary btn-group p-0 w-20"
+                                                        type="submit">
+                                                        <i class="bi bi-pencil-square p-2"></i>
+                                                    </button>
+                                                    <input type="text" class="form-control form-control-sm w-80"
+                                                        placeholder="Aqui va el dato a editar ID activo">
                                                 </div>
                                                 <button type="button submit"
-                                                        class="btn btn-outline-secondary btn-sm m-0 mt-2">Guardar cambios</button>
+                                                    class="btn btn-outline-secondary btn-sm m-0 mt-2">Guardar
+                                                    cambios</button>
                                             </div>
-                                            <div class="tab-pane fade" id="eliminar" role="tabpanel"
-                                                aria-labelledby="aliminar-tab"><!--Opcion eliminar servicio-->
+                                            <!--<div class="tab-pane fade" id="eliminar" role="tabpanel"
+                                                aria-labelledby="aliminar-tab">Opcion eliminar servicio
                                                 <ul class="list-group">
-                                                    <li class="list-group-item text-center disabled" aria-disabled="true">Comprobar los datos del servicio a eliminar</li>
+                                                    <li class="list-group-item text-center disabled"
+                                                        aria-disabled="true">Comprobar los datos del servicio a eliminar
+                                                    </li>
                                                     <li class="list-group-item">aqui va el servicio</li>
                                                     <li class="list-group-item">aqui va el circuito ID</li>
                                                     <li class="list-group-item">aqui va el M6</li>
                                                     <li class="list-group-item">aqui va el ID del activo</li>
-                                                  </ul>
+                                                </ul>
                                                 <button type="button submit"
-                                                  class="btn btn-outline-secondary btn-sm m-0 mt-2">Confirmar</button>
-                                            </div>
+                                                    class="btn btn-outline-secondary btn-sm m-0 mt-2">Confirmar</button>
+                                            </div>-->
                                         </div>
                                     </div>
                                 </div>

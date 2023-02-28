@@ -11,6 +11,10 @@ let datosProveedor = {};
 let datosCircuito = {};
 let datosServicios = {};
 let circuitoSeleccionado = false;
+const cinco=[];
+let consumidos=null;
+let idServicio=null;
+let servicioSeleccionado=false;
 
 controller.principal = (req, res) => {
     if (req.session.loggedin) {
@@ -89,14 +93,15 @@ controller.actualizarBD = (req, res) => {
             datosProveedor = results1;
             //console.log(datos);
             if (error) {
-                res.json(error)
+                return res.json(error)
             } else {
                 if (idProveedor != null) {
                     connection.query('SELECT * FROM circuito where id_prov = ? AND cir_Habilitado =1', [idProveedor], (error, results) => {
                         if (error) {
-                            return render.json(error);
+                            return res.json(error);
                         } else {
                             datosCircuito = results;
+                            datosServicios={};
                             proveedorSeleccionado = true;
                             return res.render('actualizar/actualizar', {
                                 data: results1,
@@ -114,6 +119,7 @@ controller.actualizarBD = (req, res) => {
                     });
 
                 } else {
+                    datosServicios={};
                     proveedorSeleccionado = false;
                     return res.render('actualizar/actualizar', {
                         data: results1,
@@ -131,7 +137,6 @@ controller.actualizarBD = (req, res) => {
             }
         })
     } else {
-
         res.redirect('/');
     }
 }
@@ -213,15 +218,15 @@ controller.buscarCircuito = (req, res) => {
 }
 
 controller.listarServicios = (req, res) => {
-    let idCircuitoParam = req.params.id;
+    idCircuito = req.params.id;
     circuitoSeleccionado = true;
-    connection.query('SELECT * FROM circuito where id_cir=?',[idCircuitoParam],(error,results)=>{
+    connection.query('SELECT * FROM circuito where id_cir=?',[idCircuito],(error,results)=>{
         if(error){
             res.json(error);
         }else{
             if(results[0].cir_Habilitado == 1){  
-                if ((proveedorSeleccionado == true) && (circuitoSeleccionado == true) && (idCircuitoParam != "")) {
-                    connection.query('SELECT * FROM servicio where id_cir = ?', [idCircuitoParam], (error, results) => {
+                if ((proveedorSeleccionado == true) && (circuitoSeleccionado == true) && (idCircuito != "")) {
+                    connection.query('SELECT * FROM servicio where id_cir = ?', [idCircuito], (error, results) => {
                         if (error) {
                             res.json(error);
                         } else {
@@ -283,7 +288,7 @@ controller.listarServiciosNoExisten = (req, res) => {
         name: req.session.name,
         nombre: req.session.name,
         sesion: true,
-        dataCircuito: datosCircuito,
+        dataCircuito:datosCircuito,
         dataServicio: datosServicios
     });
 }
@@ -359,6 +364,7 @@ controller.agregarCircuito=(req,res)=>{
                             });
                         }else{
                             res.redirect('/actualizarBD');
+                
                         }
                     });
                 
@@ -378,6 +384,82 @@ controller.agregarCircuito=(req,res)=>{
             dataServicio: datosServicios
         });
     }
+}
+
+function primerosCinco(){
+    for (let i = 0; i < datosCircuito.length; i++) {
+        if(i<5){
+            cinco[i]=datosCircuito[i];
+        }
+    }
+    consumidos=6;
+}
+
+controller.paginaAnteriorCircuitos=(req,res)=>{
+    console.log("Anterior");
+}
+
+controller.paginaSiguienteCircuitos=(req,res)=>{
+    
+}
+
+controller.agregarServicio=(req,res)=>{
+    if((proveedorSeleccionado==true)&&(circuitoSeleccionado==true)){
+        let servicio= req.body.servicio;
+        let m6 = req.body.m6;
+        let activo = req.body.activo;
+        connection.query('INSERT INTO servicio (id_serv, id_cir, m6, id_act)VALUES(?,?,?,?)',[servicio,idCircuito,m6,activo],(error,resultados)=>{
+            if(error){
+                res.render('actualizar/actualizar', {
+                    proveedor: nombreProveedor,
+                    data: datosProveedor,
+                    mensaje: "EL SERVICIO YA EXISTE",
+                    cir: idCircuito,
+                    login: true,
+                    name: req.session.name,
+                    nombre: req.session.name,
+                    sesion: true,
+                    dataCircuito: datosCircuito,
+                    dataServicio: datosServicios
+                });
+            }else{
+                connection.query('SELECT * FROM servicio where id_cir = ?',[idCircuito],(error,resultados)=>{
+                    if(error){
+                        return res.json(error);
+                    }else{
+                        datosServicios=resultados;
+                    }
+                });   
+            res.redirect('/actualizarBD');
+            }
+        }); 
+    }else{
+        res.render('actualizar/actualizar', {
+            proveedor: nombreProveedor,
+            data: datosProveedor,
+            mensaje: "FAVOR DE SELECCIONAR PROVEEDOR Y/O CIRCUITO",
+            cir: idCircuito,
+            login: true,
+            name: req.session.name,
+            nombre: req.session.name,
+            sesion: true,
+            dataCircuito: datosCircuito,
+            dataServicio: datosServicios
+        });
+    }
+}
+
+controller.eliminarServicio=(req,res)=>{
+    idServicio = req.params.id;
+    servicioSeleccionado=true;
+    connection.query('DELETE FROM servicio where id_serv=?',[idServicio],(error,resultados)=>{
+        if(error){
+            res.json(error);
+        }else{
+            res.redirect('/actualizarBD');
+        }
+    });
+    servicioSeleccionado=false;
 }
 
 controller.crearN = (req, res) => {
