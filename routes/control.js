@@ -20,5 +20,7 @@ router.get('/paginaAnteriorCircuitos', controller.paginaAnteriorCircuitos);
 router.get('/paginaSiguienteCircuitos', controller.paginaSiguienteCircuitos);
 router.post('/agregarServicio',controller.agregarServicio);
 router.get('/eliminarServicio/:id', controller.eliminarServicio);
+router.post('/modificarServicio/', controller.modificarServicio);
+router.get('/mostrarServicio/:id', controller.mostrarServicio);
 
 module.exports = router;

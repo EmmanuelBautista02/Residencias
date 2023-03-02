@@ -10,6 +10,7 @@ let proveedorSeleccionado = false;
 let datosProveedor = {};
 let datosCircuito = {};
 let datosServicios = {};
+let datosServicioModificar = {};
 let circuitoSeleccionado = false;
 const cinco=[];
 let consumidos=null;
@@ -80,6 +81,7 @@ controller.cerrarSesion = (req, res) => {
         datosCircuito = {};
         datosServicios = {};
         circuitoSeleccionado=false;
+        datosServicioModificar={ id_serv: 0, id_cir: 0, m6: '0', id_act: '0' };
     })
 }
 
@@ -113,7 +115,8 @@ controller.actualizarBD = (req, res) => {
                                 nombre: req.session.name,
                                 sesion: true,
                                 dataCircuito: datosCircuito,
-                                dataServicio: datosServicios
+                                dataServicio: datosServicios,
+                                modificar:datosServicioModificar
                             });
                         }
                     });
@@ -131,7 +134,8 @@ controller.actualizarBD = (req, res) => {
                         nombre: req.session.name,
                         sesion: true,
                         dataCircuito: datosCircuito,
-                        dataServicio: datosServicios
+                        dataServicio: datosServicios,
+                        modificar:datosServicioModificar
                     });
                 }
             }
@@ -161,7 +165,8 @@ controller.buscarCircuito = (req, res) => {
             nombre: req.session.name,
             sesion: true,
             dataCircuito: datosCircuito,
-            dataServicio: datosServicios
+            dataServicio: datosServicios,
+            modificar:datosServicioModificar
         });
     } else if (proveedorSeleccionado == true) {
         if (req.body.circuito.length === 0) {
@@ -175,7 +180,8 @@ controller.buscarCircuito = (req, res) => {
                 nombre: req.session.name,
                 sesion: true,
                 dataCircuito: datosCircuito,
-                dataServicio: datosServicios
+                dataServicio: datosServicios,
+                modificar:datosServicioModificar
             });
         } else {
             circuitoSeleccionado = true;
@@ -195,7 +201,8 @@ controller.buscarCircuito = (req, res) => {
                             nombre: req.session.name,
                             sesion: true,
                             dataCircuito: datosCircuito,
-                            dataServicio: datosServicios
+                            dataServicio: datosServicios,
+                            modificar:datosServicioModificar
                         });
                     } else {
                         res.render('actualizar/actualizar', {
@@ -208,7 +215,8 @@ controller.buscarCircuito = (req, res) => {
                             nombre: req.session.name,
                             sesion: true,
                             dataCircuito: datosCircuito,
-                            dataServicio: datosServicios
+                            dataServicio: datosServicios,
+                            modificar:datosServicioModificar
                         });
                     }
                 }
@@ -241,7 +249,8 @@ controller.listarServicios = (req, res) => {
                                 nombre: req.session.name,
                                 sesion: true,
                                 dataCircuito: datosCircuito,
-                                dataServicio: datosServicios
+                                dataServicio: datosServicios,
+                                modificar:datosServicioModificar
                             });
                         }
                     });
@@ -256,7 +265,8 @@ controller.listarServicios = (req, res) => {
                         nombre: req.session.name,
                         sesion: true,
                         dataCircuito: datosCircuito,
-                        dataServicio: datosServicios
+                        dataServicio: datosServicios,
+                        modificar:datosServicioModificar
                     });
                 }
             }else{
@@ -270,7 +280,8 @@ controller.listarServicios = (req, res) => {
                     nombre: req.session.name,
                     sesion: true,
                     dataCircuito: datosCircuito,
-                    dataServicio: datosServicios
+                    dataServicio: datosServicios,
+                    modificar:datosServicioModificar
                 });
             }
         }
@@ -289,7 +300,8 @@ controller.listarServiciosNoExisten = (req, res) => {
         nombre: req.session.name,
         sesion: true,
         dataCircuito:datosCircuito,
-        dataServicio: datosServicios
+        dataServicio: datosServicios,
+        modificar:datosServicioModificar
     });
 }
 
@@ -360,7 +372,8 @@ controller.agregarCircuito=(req,res)=>{
                                 nombre: req.session.name,
                                 sesion: true,
                                 dataCircuito: datosCircuito,
-                                dataServicio: datosServicios
+                                dataServicio: datosServicios,
+                                modificar:datosServicioModificar
                             });
                         }else{
                             res.redirect('/actualizarBD');
@@ -381,7 +394,8 @@ controller.agregarCircuito=(req,res)=>{
             nombre: req.session.name,
             sesion: true,
             dataCircuito: datosCircuito,
-            dataServicio: datosServicios
+            dataServicio: datosServicios,
+            modificar:datosServicioModificar
         });
     }
 }
@@ -420,7 +434,8 @@ controller.agregarServicio=(req,res)=>{
                     nombre: req.session.name,
                     sesion: true,
                     dataCircuito: datosCircuito,
-                    dataServicio: datosServicios
+                    dataServicio: datosServicios,
+                    modificar:datosServicioModificar
                 });
             }else{
                 connection.query('SELECT * FROM servicio where id_cir = ?',[idCircuito],(error,resultados)=>{
@@ -444,7 +459,8 @@ controller.agregarServicio=(req,res)=>{
             nombre: req.session.name,
             sesion: true,
             dataCircuito: datosCircuito,
-            dataServicio: datosServicios
+            dataServicio: datosServicios,
+            modificar:datosServicioModificar
         });
     }
 }
@@ -462,6 +478,63 @@ controller.eliminarServicio=(req,res)=>{
     servicioSeleccionado=false;
 }
 
+
+controller.modificarServicio=(req,res)=>{
+    if(servicioSeleccionado){
+        let m6Nuevo= req.body.m6;
+        let idActivo=req.body.id_act;
+        connection.query('UPDATE servicio SET m6=?, id_act=? where id_serv=?',[m6Nuevo,idActivo,idServicio],(error,resultado)=>{
+            if(error){
+                return res.json(error);
+            }else{
+                res.redirect('/actualizarBD');
+                servicioSeleccionado=false;
+                idServicio=null;
+                datosServicioModificar={};
+            }
+        });
+    }else{
+        res.render('actualizar/actualizar', {
+            proveedor: nombreProveedor,
+            data: datosProveedor,
+            mensaje: "FAVOR DE SELECCIONAR UN SERVICIO PARA MODIFICAR",
+            cir: idCircuito,
+            login: true,
+            name: req.session.name,
+            nombre: req.session.name,
+            sesion: true,
+            dataCircuito: datosCircuito,
+            dataServicio: datosServicios,
+            modificar:datosServicioModificar
+        });
+        
+    }
+}
+
+controller.mostrarServicio=(req,res)=>{
+    idServicio=req.params.id;
+    servicioSeleccionado=true;
+    connection.query('SELECT * FROM servicio where id_serv=?',[idServicio],(error,resultados)=>{
+        if(error){
+            return res.json(error);
+        }else{
+            datosServicioModificar=resultados[0];
+            res.render('actualizar/actualizar', {
+                proveedor: nombreProveedor,
+                data: datosProveedor,
+                mensaje:  `SERVICIO ${idServicio} SELECCIONADO FAVOR DE IR A LA PESTAÑA 'Modificar' EN 'Ejecutar acciones para servicios'` ,
+                cir: idCircuito,
+                login: true,
+                name: req.session.name,
+                nombre: req.session.name,
+                sesion: true,
+                dataCircuito: datosCircuito,
+                dataServicio: datosServicios,
+                modificar:datosServicioModificar
+            });
+        }
+    });
+}
 controller.crearN = (req, res) => {
     if (req.session.loggedin) {
         return res.render('crearN/crearN');
