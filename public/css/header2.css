@@ -26,12 +26,15 @@
 .dropdown-menu a{
     padding: 0%;
     margin: 0%;
-    color: rgba(0, 0, 0, 0.468)!important;;
+    color: rgba(255, 255, 255, 0.847)!important;;
 }
 
 .dropdown-menu{
     background-color: #ffffff;
 }
 
-
+.li-opciones a:hover{
+    color:  rgb(255, 255, 255)!important;
+    background-color: #4d4c4c93;
+}
 

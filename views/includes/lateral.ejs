@@ -19,51 +19,51 @@
 
 <!--Barra lateral-->
 <div class="container-fluid">
-    <div class="row min-vh-100 flex-column flex-md-row dasboard">
-    <aside class="col-12 col-sm-12 col-md-2 col-xl-2 p-0 felix-shrink-1 barraLateral">
-      <nav class="navbar1 navbar-dark navbar-expand-md flex-md-column flex-row py-2 sticky-top" id="lateral">
-        <div class="logo">
-        <img src="../resources/img/Bestel.svg" alt="" class="img-fluid d-none d-md-block">
-        </div>
-        <button class="navbar-toggler border-0 order-1" type="button" data-bs-toggle="collapse" data-bs-target="#nav" aria-controls="nav" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse prder-last" id="nav">
-          <ul class="navbar-nav flex-column w-100 justify-content-center">
-            <li class="nav-item">
-            <a class="nav-link" aria-current="page" href="../principal/principal.ejs">Home</a>
-            </li>
-            <li class="nav-item">
-            <a class="nav-link" aria-current="page" href="../crearN/crearN.ejs">Crear notificaión</a>
-            </li>
-            <li class="nav-item">
-            <a class="nav-link" aria-current="page" href="../notificaciones/notificaciones.ejs">Lista de noticaciones</a>
-            </li>
-            <li>
-              <button class="btn d-inline-flex align-items-center collapsed" data-bs-toggle="collapse" aria-expanded="false" data-bs-target="#contents-collapse" aria-controls="contents-collapse">Contents</button>
-              <ul class="list-unstyled ps-3 collapse" id="contents-collapse" value="">
-                <li><a class="d-inline-flex align-items-center rounded" href="#typography">Typography</a></li>
-                <li><a class="d-inline-flex align-items-center rounded" href="#images">Images</a></li>
-                <li><a class="d-inline-flex align-items-center rounded" href="#tables">Tables</a></li>
-                <li><a class="d-inline-flex align-items-center rounded" href="#figures">Figures</a></li>
-              </ul>
-            </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link active dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  <% if (login) { %>
-                    <%- name %>
-                    <% }else { %>
-                    Usuario
-                    <% } %>
-                </a>
-                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <li><a class="dropdown-item" href="#">LO QUE SEA</a></li>
-                  <li><a class="dropdown-item" href="#">LO QUE SEA</a></li>
-                  <li><hr class="dropdown-divider"></li>
-                  <li><a class="dropdown-item" name="close-session" href="/csesion"> Cerrar sesión</a></li>
-                </ul>
+  <div class="row min-vh-100 flex-column flex-md-row dasboard">
+  <aside class="col-12 col-sm-12 col-md-2 col-xl-2 m-0 p-0 felix-shrink-1 barraLateral">
+    <nav class="navbar1 navbar-dark navbar-expand-md flex-md-column flex-row" id="lateral">
+      <div class="logo ">
+        <img src="../resources/img/Bestel.svg" alt="profile pictures" class="img-fluid d-none d-md-block mx-auto">
+      </div>
+      <button class="navbar-toggler border-0 order-1 m-1" type="button" data-bs-toggle="collapse" data-bs-target="#nav" aria-controls="nav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse order-last" id="nav">
+        <ul class="navbar-nav flex-column w-100 ">
+          <li class="nav-item">
+            <a class=" nav-link" href="../principal/principal.ejs" style="outline: none;">
+              <i class="bi bi-house-fill" style="padding-right: 5%; margin-left: 5%;"></i>Inicio</a>
+          </li>
+          <li class="nav-item">
+            <a class=" nav-link" href="../actualizar/actualizar.ejs" style="outline: none;">
+              <i class="bi bi-database-fill-check" style="padding-right: 5%; margin-left: 5%;"></i>Actualizar BD</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="../crearN/crearN.ejs" style="outline: none;">
+              <i class="bi bi-send-plus-fill" style="padding-right: 5%; margin-left: 5%;"></i>Crear notificación</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="../notificaciones/notificaciones.ejs" style="outline: none;">
+              <i class="bi bi-window-stack" style="padding-right: 5%; margin-left: 5%;"></i>Notificaciones</a>
+          </li>
+          <li class="text-center">
+            <button class="btn align-items-center collapsed p-0 rounded-circle"  style="color: #ffffff; font-size: 2em; margin: 5%;" data-bs-toggle="collapse" aria-expanded="false" 
+            data-bs-target="#contents-collapse" aria-controls="contents-collapse">
+              <i class="bi bi-person-circle" style="width: 5em; height: 5em;"></i>
+            </button>
+            <ul class="list-unstyled collapse justify-content-center" id="contents-collapse" value="">
+              <li style="color: #ffffff; ">
+                <% if (login) { %>
+                  <%- name %>
+                  <% }else { %>
+                  Usuario
+                  <% } %> 
               </li>
-          </ul>
-        </div>
-      </nav>
-    </aside>
+              <li><a class="dropdown-item" style="margin: 0%; padding-left: 5%;" href="#">Perfil</a></li>
+              <li><a class="dropdown-item" style="margin: 0%; padding-left: 5%;" name="close-session" href="/csesion"> Cerrar sesión</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </aside>
