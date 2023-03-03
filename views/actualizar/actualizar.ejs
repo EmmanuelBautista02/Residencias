@@ -49,13 +49,19 @@
                                             <i class="bi bi-search p-1"></i>
                                         </button>
                                     </div>
-                                    <% if(mensaje) {%>
-                                        <%= mensaje %>
-                                            <% } %>
+                                                
                                 </form>
                                 <a href="/listarServicios/<%= cir %>"
-                                    class="btn btn-outline-secondary btn-sm m-0 mt-2">Listar
-                                    servicios</a>
+                                    class="btn btn-outline-secondary btn-sm m-0 mt-2">Listar servicios</a>
+                                <!--Mensaje de error-->
+                                <% if(mensaje) {%>
+                                <div class="alert alert-warning d-flex align-items-center mt-1 p-1" role="alert">
+                                    <i class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" style="margin-left: 3%;" role="img"></i>
+                                    <div style="font-size: 0.75em;">
+                                        <%= mensaje %>
+                                    </div>
+                                        </div>
+                                <% } %>
                             </div>
                         </div>
                     </div>
@@ -240,7 +246,6 @@
                                                             class="form-control form-control-sm"
                                                             placeholder="Ingresar servicio" required>
                                                     </div>
-
                                                     <div class="form-group">
                                                         <input type="number" name="m6" id="m6"
                                                             class="form-control form-control-sm"
@@ -259,23 +264,19 @@
                                             <div class="tab-pane fade" id="modificar" role="tabpanel"
                                                 aria-labelledby="moficar-tab"><!--Opcion modificar servicio-->
                                                 <form action="/modificarServicio" method="post">
-                                                    <!--<div class="input-group w-100">
-                                                        <button class="btn btn-outline-secondary btn-group p-0 w-20" type="submit" disabled>
-                                                            <i class="bi bi-pencil-square p-2">Editar ID del servicio</i>
-                                                        </button>
-                                                        <input type="text" class="form-control form-control-sm w-80" placeholder="Editar ID servicio" value="<%= modificar.id_serv %>"> 
-                                                    </div>-->
+                                                    <label for="">Editar M6:</label>
                                                     <div class="input-group w-100">
                                                         <button class="btn btn-outline-secondary btn-group p-0 w-20" type="submit" disabled>
-                                                            <i class="bi bi-pencil-square p-2">Editar M6</i>
+                                                            <i class="bi bi-pencil-square p-2"></i>
                                                         </button>
-                                                        <input type="text" class="form-control form-control-sm w-80" placeholder="Editar M6" value="<%= modificar.m6 %> "name="m6" id="m6" required>
+                                                        <input type="text" class="form-control form-control-sm w-80" value="<%= modificar.m6 %> "name="m6" id="m6" required>
                                                     </div>
+                                                    <label for="">Editar ID activo:</label>
                                                     <div class="input-group w-100">
                                                         <button class="btn btn-outline-secondary btn-group p-0 w-20" type="submit" disabled>
-                                                            <i class="bi bi-pencil-square p-2">Editar ID activo</i>
+                                                            <i class="bi bi-pencil-square p-2"></i>
                                                         </button>
-                                                        <input type="text" class="form-control form-control-sm w-80" placeholder="Editar ID activo" value="<%= modificar.id_act %> " name="id_act" id="id_Act" required>
+                                                        <input type="text" class="form-control form-control-sm w-80" value="<%= modificar.id_act %> " name="id_act" id="id_Act" required>
                                                     </div>
                                                     <button type="button submit"
                                                         class="btn btn-outline-secondary btn-sm m-0 mt-2">Guardar
