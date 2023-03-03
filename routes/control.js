@@ -3,7 +3,8 @@ const controller = require('../controllers/controladores');
 const router = express.Router();
 
 router.get("/",controller.principal);
-router.get('/logueado',controller.logueado);
+//router.get('/logueado',controller.logueado);
+router.get('/principal',controller.principal);
 router.post('/auth',controller.autenticar);
 router.get('/csesion', controller.cerrarSesion);
 router.get('/contactanos',controller.contactanos);
