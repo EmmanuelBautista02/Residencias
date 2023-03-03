@@ -11,8 +11,11 @@
   <title>Control de Notificaciones de Ventanas para Mantenimiento</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-  <link href="https://fonts.googleapis.com/css?family=Anton|Montserrat&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/resources/css/index.css" type="text/css">
+  <!--link de la fuente Montserrat-->
+  <link href="https://fonts.googleapis.com/css?family=Anton|Montserrat&display=swap" rel="stylesheet">
+  <!--Link de la pagina de icons-->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
 </head>
 
 <body>
@@ -40,7 +43,7 @@
               <label for="exampleInputEmail1" class="form-label">Email</label>
             </div>
             <div class="input-group mb-3">
-              <div class="input-group-text"><img src="/resources/icons/usuario2.png" alt="" class="usuario"></div>
+              <div class="input-group-text"><i class="bi bi-person-fill" style="font-size: 1.em; color: rgb(255, 255, 255);"></i></div>
               <input type="email" class="form-control" placeholder="Ingresa tu email" id="email" name="email"
                 aria-describedby="emailHelp" value="<%- usu %>" required>
             </div>
@@ -48,16 +51,21 @@
               <label for="exampleInputPassword1" class="form-label">Contraseña</label>
             </div>
             <div class="input-group mb-3">
-              <div class="input-group-text"><img src="/resources/icons/candado.png" alt="" class="usuario"></div>
+              <div class="input-group-text"><i class="bi bi-lock-fill" style="font-size: 1em; color: rgb(255, 255, 255);"></i></div>
               <input type="password" class="form-control" placeholder="Ingresa tu contraseña" id="password"
                 name="password" required>
             </div>
             <div class="boton">
               <button type="submit" id="btnLogin" name="btnLogin" class="btn btn-verde w-50">Iniciar sesión</button>
             </div>
-            <div>
-              <%- msg %>
-            </div>
+            <% if(msg) { %>
+              <div class="alert alert-danger d-flex align-items-center mt-3" role="alert">
+                <i class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" width="24" height="24" role="img"></i>
+                <div>
+                  <%- msg %>
+                </div>
+              </div>
+              <% } %>
             <div id="emailHelp" class="form-text linkContactanos w-100 mt-5">¿Has olvidado tu contraseña?
               <p>Favor de comunicarse con el administrador en la pestaña <a href="/contactanos">"Contactanos"</a></p>
             </div>
