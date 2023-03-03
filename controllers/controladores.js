@@ -447,46 +447,33 @@ controller.agregarCircuito = (req, res) => {
             //OBTIENE EL ID Y NOMBRE DEL CIRCUITO A AGREGAR
             let id = req.body.id;
             let nombre = req.body.nombre;
-            connection.query('SELECT * FROM circuito where id_prov = ? AND id_cir = ?', [idProveedor, id], (error, results) => {
+            //GUARDAR CIRCUITO NUEVO
+            connection.query('INSERT INTO circuito (id_cir, nombre_cir, id_prov, cir_Habilitado) values (?,?,?,?) ', [id, nombre, idProveedor, 1], (error, results) => {
+                //SI HAY ERROR DE SINTAXIS O SI EL CIRCUITO YA EXISTE
                 if (error) {
-                    res.json(error);
-                } else {
-                    /*res.render('actualizar/actualizar', {
+                     //RENDERIZA VENTANA DE ACTUALIZAR BD Y MANDA DATOS AL FRONT
+                    res.render('actualizar/actualizar', {
                         proveedor: nombreProveedor,
                         data: datosProveedor,
-                        mensaje: "EL CIRCUITO YA HA SIDO AGREGADO ANTERIORMENTE",
+                        mensaje: "EL CIRCUITO YA EXISTE FAVOR DE INGRESAR OTRO",
                         cir: idCircuito,
                         login: true,
                         name: req.session.name,
                         nombre: req.session.name,
                         sesion: true,
                         dataCircuito: datosCircuito,
-                        dataServicio: datosServicios
-                    });*/
-                    connection.query('INSERT INTO circuito (id_cir, nombre_cir, id_prov, cir_Habilitado) values (?,?,?,?) ', [id, nombre, idProveedor, 1], (error, results) => {
-                        if (error) {
-                            res.render('actualizar/actualizar', {
-                                proveedor: nombreProveedor,
-                                data: datosProveedor,
-                                mensaje: "EL CIRCUITO YA HA SIDO AGREGADO ANTERIORMENTE",
-                                cir: idCircuito,
-                                login: true,
-                                name: req.session.name,
-                                nombre: req.session.name,
-                                sesion: true,
-                                dataCircuito: datosCircuito,
-                                dataServicio: datosServicios,
-                                modificar: datosServicioModificar
-                            });
-                        } else {
-                            res.redirect('/actualizarBD');
-
-                        }
+                        dataServicio: datosServicios,
+                        modificar: datosServicioModificar
                     });
+                    //SI EL CIRCUITO NO EXISTE, LO AGREGA A LA BD
+                } else {
+                    res.redirect('/actualizarBD');
 
                 }
             });
+            //SI NO HAY PROVEEDOR SELECCIONADO
         } else {
+             //RENDERIZA VENTANA DE ACTUALIZAR BD Y MANDA DATOS AL FRONT
             res.render('actualizar/actualizar', {
                 proveedor: nombreProveedor,
                 data: datosProveedor,
@@ -508,6 +495,7 @@ controller.agregarCircuito = (req, res) => {
 
 }
 
+//FUNCIÓN PARA RECOGER LOS CINCO PRIMEROS CIRCUITOS DE UN PROVEEDOR (EN DESARROLLO)
 function primerosCinco() {
     for (let i = 0; i < datosCircuito.length; i++) {
         if (i < 5) {
@@ -517,10 +505,12 @@ function primerosCinco() {
     consumidos = 6;
 }
 
+//MÉTODO PARA PAGINACION, PÁGINA ANTERIOR (EN DESARROLLO)
 controller.paginaAnteriorCircuitos = (req, res) => {
     console.log("Anterior");
 }
 
+//MÉTODO PARA PAGINACION, PÁGINA SIGUIENTE (EN DESARROLLO)
 controller.paginaSiguienteCircuitos = (req, res) => {
 
 }
