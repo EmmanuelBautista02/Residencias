@@ -451,7 +451,7 @@ controller.agregarCircuito = (req, res) => {
             connection.query('INSERT INTO circuito (id_cir, nombre_cir, id_prov, cir_Habilitado) values (?,?,?,?) ', [id, nombre, idProveedor, 1], (error, results) => {
                 //SI HAY ERROR DE SINTAXIS O SI EL CIRCUITO YA EXISTE
                 if (error) {
-                     //RENDERIZA VENTANA DE ACTUALIZAR BD Y MANDA DATOS AL FRONT
+                    //RENDERIZA VENTANA DE ACTUALIZAR BD Y MANDA DATOS AL FRONT
                     res.render('actualizar/actualizar', {
                         proveedor: nombreProveedor,
                         data: datosProveedor,
@@ -473,7 +473,7 @@ controller.agregarCircuito = (req, res) => {
             });
             //SI NO HAY PROVEEDOR SELECCIONADO
         } else {
-             //RENDERIZA VENTANA DE ACTUALIZAR BD Y MANDA DATOS AL FRONT
+            //RENDERIZA VENTANA DE ACTUALIZAR BD Y MANDA DATOS AL FRONT
             res.render('actualizar/actualizar', {
                 proveedor: nombreProveedor,
                 data: datosProveedor,
@@ -515,112 +515,55 @@ controller.paginaSiguienteCircuitos = (req, res) => {
 
 }
 
+//MÉTODO PARA AGREGAR SERVICIO
 controller.agregarServicio = (req, res) => {
-    if ((proveedorSeleccionado == true) && (circuitoSeleccionado == true)) {
-        let servicio = req.body.servicio;
-        let m6 = req.body.m6;
-        let activo = req.body.activo;
-        connection.query('INSERT INTO servicio (id_serv, id_cir, m6, id_act)VALUES(?,?,?,?)', [servicio, idCircuito, m6, activo], (error, resultados) => {
-            if (error) {
-                res.render('actualizar/actualizar', {
-                    proveedor: nombreProveedor,
-                    data: datosProveedor,
-                    mensaje: "EL SERVICIO YA EXISTE",
-                    cir: idCircuito,
-                    login: true,
-                    name: req.session.name,
-                    nombre: req.session.name,
-                    sesion: true,
-                    dataCircuito: datosCircuito,
-                    dataServicio: datosServicios,
-                    modificar: datosServicioModificar
-                });
-            } else {
-                connection.query('SELECT * FROM servicio where id_cir = ?', [idCircuito], (error, resultados) => {
-                    if (error) {
-                        return res.json(error);
-                    } else {
-                        datosServicios = resultados;
-                    }
-                });
-                res.redirect('/actualizarBD');
-            }
-        });
-    } else {
-        res.render('actualizar/actualizar', {
-            proveedor: nombreProveedor,
-            data: datosProveedor,
-            mensaje: "FAVOR DE SELECCIONAR PROVEEDOR Y/O CIRCUITO",
-            cir: idCircuito,
-            login: true,
-            name: req.session.name,
-            nombre: req.session.name,
-            sesion: true,
-            dataCircuito: datosCircuito,
-            dataServicio: datosServicios,
-            modificar: datosServicioModificar
-        });
-    }
-}
-
-controller.eliminarServicio = (req, res) => {
-    idServicio = req.params.id;
-    servicioSeleccionado = true;
-    connection.query('DELETE FROM servicio where id_serv=?', [idServicio], (error, resultados) => {
-        if (error) {
-            res.json(error);
+    //SI EXISTE SESION ACTIVA
+    if (req.session.loggedin) {
+        //SI HAY PROVEEDOR Y CIRCUITO SELECCIONADO
+        if ((proveedorSeleccionado == true) && (circuitoSeleccionado == true)) {
+            //RECUPERAR DATOS DEL SERVICIO A AGREGAR
+            let servicio = req.body.servicio;
+            let m6 = req.body.m6;
+            let activo = req.body.activo;
+            //QUERY PARA INSERTAR DATOS
+            connection.query('INSERT INTO servicio (id_serv, id_cir, m6, id_act)VALUES(?,?,?,?)', [servicio, idCircuito, m6, activo], (error, resultados) => {
+                if (error) {
+                    //SI EL SERVICIO YA EXISTE
+                    res.render('actualizar/actualizar', {
+                        proveedor: nombreProveedor,
+                        data: datosProveedor,
+                        mensaje: "EL SERVICIO YA EXISTE",
+                        cir: idCircuito,
+                        login: true,
+                        name: req.session.name,
+                        nombre: req.session.name,
+                        sesion: true,
+                        dataCircuito: datosCircuito,
+                        dataServicio: datosServicios,
+                        modificar: datosServicioModificar
+                    });
+                } else {
+                    //SI NO EXISTE SERVICIO, SELECCIONAR LOS SERVICIOS DEL CIRCUITO SELECCIONADO
+                    connection.query('SELECT * FROM servicio where id_cir = ?', [idCircuito], (error, resultados) => {
+                        if (error) {
+                            //SI HAY ERROR, LANZAR PÁGINA EN JSON
+                            return res.json(error);
+                        } else {
+                            //GUARDAR LOS SERVICIOS CON EL AGREGADO EN VARIABLE
+                            datosServicios = resultados;
+                        }
+                    });
+                    //LANZAR LA PÁGINA DE ACTUALIZAR BD
+                    res.redirect('/actualizarBD');
+                }
+            });
+            //SI NO HAY CIRCUITO Y/O PROVEEDOR SELECCIONADO
         } else {
-            res.redirect('/actualizarBD');
-        }
-    });
-    servicioSeleccionado = false;
-}
-
-
-controller.modificarServicio = (req, res) => {
-    if (servicioSeleccionado) {
-        let m6Nuevo = req.body.m6;
-        let idActivo = req.body.id_act;
-        connection.query('UPDATE servicio SET m6=?, id_act=? where id_serv=?', [m6Nuevo, idActivo, idServicio], (error, resultado) => {
-            if (error) {
-                return res.json(error);
-            } else {
-                res.redirect('/actualizarBD');
-                servicioSeleccionado = false;
-                idServicio = null;
-                datosServicioModificar = {};
-            }
-        });
-    } else {
-        res.render('actualizar/actualizar', {
-            proveedor: nombreProveedor,
-            data: datosProveedor,
-            mensaje: "FAVOR DE SELECCIONAR UN SERVICIO PARA MODIFICAR",
-            cir: idCircuito,
-            login: true,
-            name: req.session.name,
-            nombre: req.session.name,
-            sesion: true,
-            dataCircuito: datosCircuito,
-            dataServicio: datosServicios,
-            modificar: datosServicioModificar
-        });
-
-    }
-}
-
-controller.mostrarServicio = (req, res) => {
-    idServicio = req.params.id;
-    servicioSeleccionado = true;
-    connection.query('SELECT * FROM servicio where id_serv=?', [idServicio], (error, resultados) => {
-        if (error) {
-            return res.json(error);
-        } else {
-            datosServicioModificar = resultados[0];
+            //RENDERIZA VENTANA DE ACTUALIZAR BD Y MANDA DATOS AL FRONT
             res.render('actualizar/actualizar', {
                 proveedor: nombreProveedor,
                 data: datosProveedor,
-                mensaje: `SERVICIO ${idServicio} SELECCIONADO FAVOR DE IR A LA PESTAÑA 'Modificar' EN 'Ejecutar acciones para servicios'`,
+                mensaje: "FAVOR DE SELECCIONAR PROVEEDOR Y/O CIRCUITO",
                 cir: idCircuito,
                 login: true,
                 name: req.session.name,
@@ -631,25 +574,144 @@ controller.mostrarServicio = (req, res) => {
                 modificar: datosServicioModificar
             });
         }
-    });
+        //SI NO HAY SESION ACTIVA
+    } else {
+        res.redirect('/');
+    }
 }
+
+//MÉTODO PARA ELIMINAR SERVICIO
+controller.eliminarServicio = (req, res) => {
+    //SI EXISTE SESION ACTIVA
+    if (req.session.loggedin) {
+        //GUARDAR EL ID DEL SERVICIO A ELIMINAR Y PONER BANDERA DE SERVICIO SELECCIONADO EN TRUE
+        idServicio = req.params.id;
+        servicioSeleccionado = true;
+        //QUERY PARA ELIMINAR EL SERVICIO SELECCIONADO
+        connection.query('DELETE FROM servicio where id_serv=?', [idServicio], (error, resultados) => {
+            //SI HAY ERROR MANDAR PÁGINA EN JSON
+            if (error) {
+                res.json(error);
+            } else {
+                //REDIRECCIONAR A LA PÁGINA ACTUALIZAR BD
+                res.redirect('/actualizarBD');
+            }
+        });
+        //PONER BANDERA DE SERVICIO SELECCIONADO EN FALSE
+        servicioSeleccionado = false;
+        //SI NO EXISTE SESION ACTIVA
+    } else {
+        res.redirect('/');
+    }
+}
+
+//MÉTODO PARA MODIFICAR SERVICIO
+controller.modificarServicio = (req, res) => {
+    //SI EXISTE SESION ACTIVA
+    if (req.session.loggedin) {
+        //SI HAY SERVICIO SELECCIONADO
+        if (servicioSeleccionado) {
+            //OBTIENES LOS NUEVOS DATOS A MODIFICAR
+            let m6Nuevo = req.body.m6;
+            let idActivo = req.body.id_act;
+            //QUERY PARA MODIFICAR SERVICIO
+            connection.query('UPDATE servicio SET m6=?, id_act=? where id_serv=?', [m6Nuevo, idActivo, idServicio], (error, resultado) => {
+                //SI HAY ERROR, MANDAR PÁGINA EN JSON
+                if (error) {
+                    return res.json(error);
+                }
+                //si no hay error, redireccionar a Actualizar BD con el servicio actualizado
+                else {
+                    res.redirect('/actualizarBD');
+                    servicioSeleccionado = false;
+                    idServicio = null;
+                    datosServicioModificar = {};
+                }
+            });
+        } else {
+            //RENDERIZA VENTANA DE ACTUALIZAR BD Y MANDA DATOS AL FRONT
+            res.render('actualizar/actualizar', {
+                proveedor: nombreProveedor,
+                data: datosProveedor,
+                mensaje: "FAVOR DE SELECCIONAR UN SERVICIO PARA MODIFICAR",
+                cir: idCircuito,
+                login: true,
+                name: req.session.name,
+                nombre: req.session.name,
+                sesion: true,
+                dataCircuito: datosCircuito,
+                dataServicio: datosServicios,
+                modificar: datosServicioModificar
+            });
+        }
+        //SI NO HAY SESIÓN ACTIVA
+    } else {
+        res.redirect('/');
+    }
+}
+
+//mostrar el servicio a actualizar en la pestaña "Modificar"
+controller.mostrarServicio = (req, res) => {
+    //SI EXISTE SESION ACTIVA
+    if (req.session.loggedin) {
+        //RECUPERAR ID DEL SERVICIO A MODIFICAR Y PONER BANDERA DE SERVICIO SELECCIONADO EN TRUE
+        idServicio = req.params.id;
+        servicioSeleccionado = true;
+        //QUERY PARA OBTENER TODOS LOS DATOS DEL SERVICIO A MODIFICAR
+        connection.query('SELECT * FROM servicio where id_serv=?', [idServicio], (error, resultados) => {
+            //SI HAY ERROR MANDAR PÁGINA EN JSON
+            if (error) {
+                return res.json(error);
+            } 
+            //SI NO HAY ERROR, GUARDAR LOS DATOS DEL SERVICIO EN UNA VARIABLE
+            else {
+                datosServicioModificar = resultados[0];
+                  //RENDERIZA VENTANA DE ACTUALIZAR BD Y MANDA DATOS AL FRONT
+                res.render('actualizar/actualizar', {
+                    proveedor: nombreProveedor,
+                    data: datosProveedor,
+                    mensaje: `SERVICIO ${idServicio} SELECCIONADO FAVOR DE IR A LA PESTAÑA 'Modificar' EN 'Ejecutar acciones para servicios'`,
+                    cir: idCircuito,
+                    login: true,
+                    name: req.session.name,
+                    nombre: req.session.name,
+                    sesion: true,
+                    dataCircuito: datosCircuito,
+                    dataServicio: datosServicios,
+                    modificar: datosServicioModificar
+                });
+            }
+        });
+        //SI EXISTE SESION ACTIVA
+    } else {
+        res.redirect('/');
+    }
+}
+
+//MÉTODO PARA ABRIR PÁGINA DE CREAR NOTIFICACIÓN
 controller.crearN = (req, res) => {
+    //SI EXISTE SESION ACTIVA
     if (req.session.loggedin) {
         return res.render('crearN/crearN');
-    } else {
-
+    } 
+    //SI EXISTE SESION ACTIVA
+    else {
         res.redirect('/');
     }
 }
 
+//MÉTODO PARA ABRIR PÁGINA DE LISTAR NOTIFICACIONES
 controller.notificaciones = (req, res) => {
+    //SI EXISTE SESION ACTIVA
     if (req.session.loggedin) {
         return res.render('notificaciones/notificaciones');
-    } else {
+    } 
+    //SI EXISTE SESION ACTIVA
+    else {
         res.redirect('/');
     }
 }
 
 
-
+//MÉTODO PARA EXPORTAR LOS MÉTODOS
 module.exports = controller;

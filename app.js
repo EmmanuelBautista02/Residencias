@@ -1,3 +1,4 @@
+//
 const express = require('express');
 const router=require('./routes/control');
 const bcryptjs= require('bcryptjs')
@@ -28,6 +29,7 @@ app.set('view engine', 'ejs');
 //routes
 app.use('/',router);
 
+//LANZAR SERVIDOR
 const PUERTO=3000;
 app.listen(PUERTO,()=>{
     console.log(`Servidor listo en http://localhost:${PUERTO}`);
