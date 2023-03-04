@@ -308,7 +308,7 @@ controller.listarServicios = (req, res) => {
                                 res.render('actualizar/actualizar', {
                                     proveedor: nombreProveedor,
                                     data: datosProveedor,
-                                    mensaje: "",
+                                    mensaje: "CIRCUITO SELECCIONADO",
                                     cir: idCircuito,
                                     login: true,
                                     name: req.session.name,
@@ -422,7 +422,14 @@ controller.inhabilitarCircuito = (req, res) => {
                                 dataCircuito: datosCircuito,
                                 dataServicio: datosServicios
                             });*/
-                            res.redirect('/actualizarBD');
+                            connection.query('delete from servicio where id_cir = ?',[idCircuitoParam],(error,resultados)=>{
+                                if(error){
+                                    return res.json(error);
+                                }else{
+                                    res.redirect('/actualizarBD');
+                                }
+                            })
+                            
                         }
                     });
 
@@ -525,8 +532,9 @@ controller.agregarServicio = (req, res) => {
             let servicio = req.body.servicio;
             let m6 = req.body.m6;
             let activo = req.body.activo;
+            let nombre= req.body.nombre;
             //QUERY PARA INSERTAR DATOS
-            connection.query('INSERT INTO servicio (id_serv, id_cir, m6, id_act)VALUES(?,?,?,?)', [servicio, idCircuito, m6, activo], (error, resultados) => {
+            connection.query('INSERT INTO servicio (id_serv, nombre_serv ,id_cir, m6, id_act)VALUES(?,?,?,?,?)', [servicio, nombre,idCircuito, m6, activo], (error, resultados) => {
                 if (error) {
                     //SI EL SERVICIO YA EXISTE
                     res.render('actualizar/actualizar', {
