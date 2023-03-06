@@ -23,5 +23,9 @@ router.post('/agregarServicio',controller.agregarServicio);
 router.get('/eliminarServicio/:id', controller.eliminarServicio);
 router.post('/modificarServicio/', controller.modificarServicio);
 router.get('/mostrarServicio/:id', controller.mostrarServicio);
+router.get('/mostrarCircuitosTodos', controller.mostrarCircuitosTodos);
+router.get('/ordenarFecha', controller.ordenarFecha);
+router.get('/ordenarMayorMenor', controller.ordenarMayorMenor);
+router.get('/ordenarMenorMayor', controller.ordenarMenorMayor);
 
 module.exports = router;
