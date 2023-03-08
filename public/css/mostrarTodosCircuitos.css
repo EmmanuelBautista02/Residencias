@@ -1,0 +1,22 @@
+body{ 
+    background-color: #E2DCC8;
+    margin: 0%;
+    font-family: 'Montserrat';
+}
+
+.titulo{ 
+    background-color: #A1D23F;
+}
+
+.titulo h4{
+    font-family: 'Montserrat';
+    text-align: center;
+    font-weight: bold;
+    color: #ffffff;
+    margin: 0%;
+}
+
+.pagination{
+    font-size: smaller;
+}
+  

@@ -119,16 +119,18 @@ form{
     color: #3A0092;
 }
 
-.btn-verde{
+.btn{
     padding: 7px 12px;
     color: #ffffff;
     background-color: #000000; 
     font-weight: bold;
     font-family: 'Montserrat';
     border-radius: 1em;
+    width: 75%;
+    border: 0;
 }
 
-.btn-verde:hover{
+.btn:hover{
     padding: 7px 12px;
     color: #000000;
     background-color: #ffffff;

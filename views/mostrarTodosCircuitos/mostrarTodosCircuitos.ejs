@@ -1,53 +1,87 @@
+<%- include('../includes/header2.ejs',{name:nombre, login:sesion}) %>
 <title>Tabla de circuitos</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js">
 </script>
+
+<!--Link de css de bootstrap-->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<!--acceso a doc css de datatable-->
+<link rel="stylesheet" href="../../resources/css/datatables.min.css">
+<!--acceso a doc css de estilos-->
+<link rel="stylesheet" href="../../resources/css/mostrarTodosCircuitos.css" type="text/css">
+
 <div>
-    <link rel="stylesheet" href="../../resources/css/actualizar.css" type="text/css">
-    <!--link de plataforma de donde vienen los icons-->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" 
-    rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" 
-    crossorigin="anonymous">
-    <link href="https://fonts.googleapis.com/css?family=Anton|Montserrat&display=swap" rel="stylesheet">
-    
-    <link href="../../resources/css/lateral.css" rel="stylesheet" type="text/css">
+    <div class="titulo">
+        <h4>Vista global de circuitos</h4>
+    </div>
+    <div class="container min-vh-100">  
+        <div class="table-responsive pt-2 pb-2" style=" font-family: 'Montserrat';">
+            <table class="table m-0 table-hover " id="TABLA" style="text-align:center;">
+                <a href="javascript:closed();"  class="btn btn-outline-secondary btn-sm" id="button-addon2">CERRAR</a>
+                <thead class="text-center bg-light">
+                    <tr class="text-center">
+                        <th class="text-center p-1">ID DEL CIRCUITO</th>
+                        <th class="text-center p-1">NOMBRE DEL CIRCUITO</th>
+                        <th class="text-center p-1">CIRCUITO HABILITADO</th>
+                        <th class="text-center p-1">NOMBRE DEL PROVEEDOR</th>
+                        <th class="text-center p-1">NOMBRE DEL USUARIO</th>
+                    </tr>
+                </thead>
+                <tbody class="fw-light" style="background-color: #fff; font-size: smaller;">
+                    <tr>
+                        <% if(datosTodos) { %>
+                            <% for(let i=0; i < datosTodos.length; i++) { 
 
-<div class="table-responsive" style="background-color: #fff;">
-<table class="table m-0" id="TABLA" style="text-align:center;">
-    <thead class="text-center bg-light">
-        <tr>
-            <th>ID DEL CIRCUITO</th>
-            <th>NOMBRE DEL CIRCUITO</th>
-            <th>CIRCUITO HABILITADO</th>
-            <th>NOMBRE DEL PROVEEDOR</th>
-            <th>NOMBRE DEL USUARIO</th>
-        </tr>
-    </thead>
-    <tbody class="fw-light">
-        <tr>
-            <% if(datosTodos) { %>
-                <% for(let i=0; i < datosTodos.length; i++) { 
-
-                    if(datosTodos[i].cir_habilitado===1){
-                        datosTodos[i].cir_habilitado='HABILITADO'
-                    }else{
-                        datosTodos[i].cir_habilitado='INHABILITADO'
-                    }
-                    %>
-            <td> <%= datosTodos[i].id_cir %> </td>
-            <td> <%= datosTodos[i].nombre_cir %> </td>
-            <td> <%= datosTodos[i].cir_habilitado %> </td>
-            <td> <%= datosTodos[i].nombre_prov %> </td>
-            <td> <%= datosTodos[i].nombre_usuario %> </td>
-        </tr>
-        <% } %>
-            <% } %>
-    </tbody>
-</table>
-<br>
-<a href="javascript:closed();"  class="btn btn-outline-secondary btn-sm" id="button-addon2">CERRAR</a>
+                                if(datosTodos[i].cir_habilitado===1){
+                                    datosTodos[i].cir_habilitado='HABILITADO'
+                                }else{
+                                    datosTodos[i].cir_habilitado='INHABILITADO'
+                                }
+                                %>
+                        <td class="text-center p-1"> <%= datosTodos[i].id_cir %> </td>
+                        <td class="text-center p-1"> <%= datosTodos[i].nombre_cir %> </td>
+                        <td class="text-center p-1"> <%= datosTodos[i].cir_habilitado %> </td>
+                        <td class="text-center p-1"> <%= datosTodos[i].nombre_prov %> </td>
+                        <td class="text-center p-1"> <%= datosTodos[i].nombre_usuario %> </td>
+                    </tr>
+                    <% } %>
+                        <% } %>
+                </tbody>
+            </table>
+            </div>
+    </div>
 </div>
+
+<!--link de script de bootstrap-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+<!--acceso a doc de diseño scrip-->
+<script src="../../resources/js/jquery-3.6.3.min.js"></script>
+<!--acceso a doc scrip de datatable-->
+<script src="../../resources/js/datatables.min.js"></script>
+<script src="../../resources/js/pdfmake.min.js"></script>
+<script src="../../resources/js/vfs_fonts.js"></script>
+
+    <!--llamada a DataTable-->
+    <script>
+        $(document).ready(function () {
+        $('#TABLA').DataTable({
+            dom: '<"top"f>t<"bottom"p>',       
+            "ordering": false,
+        responsive: "true",
+        pageLength: 15,
+        language: {
+                url: 'https://cdn.datatables.net/plug-ins/1.13.3/i18n/es-MX.json'
+        }
+        });
+    });
+    </script>
+
+
 <%- include('../includes/footer.ejs') %>
 <script language="javascript" type="text/javascript"> 
     function closed() { window.open('','_parent',''); window.close(); }
-    </script> 
+</script> 
+
+

@@ -10,18 +10,18 @@
     text-align: center;
 }
 
-.btn-gris{
+.btn{
     padding: 7px 12px;
     background-color: #252525;
     color: #ffffff; 
     font-weight: bold;
     font-family: 'Montserrat';
-    border-radius: 1em;
+    border: 0;
 }
 
-.btn-gris:hover{
+.btn:hover{
     padding: 7px 12px;
-    color: #828080;
+    color: #000000;
     background-color: #ffffff;
 }
 
