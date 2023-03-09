@@ -24,7 +24,7 @@
                         <div class="card border-dark bg-transparent mb-3 position-relative">
                             <div class="card-header bg-light text-center p-1">Selección del proveedor y circuito</div>
                             <div class="card-body text-dark p-2" style="font-size: smaller;">
-                                <form action="/buscarProveedor" method="post" class="m-0">
+                                <form action="/buscarProveedorCN" method="post" class="m-0">
                                     <div>
                                         <label for="BuscarElProveedor" class="form-label m-0 mb-1">Seleccionar proveedor:</label>
                                     </div>
@@ -45,7 +45,7 @@
                                 <div>
                                     <label for="BuscarElCircuito" class="form-label m-0 mb-1">Seleccionar circuito:</label>
                                 </div>
-                                <form class="d-flex m-0" action="/buscarCircuito" method="post">
+                                <form class="d-flex m-0" action="/buscarCircuitoCN" method="post">
                                     <div class="input-group w-100">
                                         <input class="form-control form-control-sm w-80 " type="number"
                                             placeholder="Buscar" aria-label="Search" id="circuito" name="circuito"
@@ -56,7 +56,7 @@
                                     </div>
                                                 
                                 </form>
-                                <a href="/listarServicios/<%= cir %>"
+                                <a href="#"
                                     class="btn btn-outline-secondary btn-sm m-0 mt-2 p-1">Listar servicios</a>
                                 <a href="/mostrarCircuitosTodos" class="btn btn-outline-secondary btn-sm m-0 mt-2 p-1" 
                                     id="button-addon2" target="_blank"
@@ -92,34 +92,29 @@
                                             </div>
                                         </div>
                                         <div class="col-7 align-self-center text-center" style="font-size: smaller;">
-                                            <label class="form-label p-0 m-0">Ordenar circuitos por:</label>
+                                            <form action="/ordenarCN" method="post">
+                                            <label class="form-label p-0 m-0">Circuitos ordenados por: 
+                                                <% if(ordenar){ %> 
+                                                    <%= ordenar %> 
+                                                <% } %></label>
                                             <br>
                                             <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="Opcion Fecha">
                                                 <label class="form-check-label" for="inlineRadio1">Fecha</label>
                                             </div>
                                             <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+                                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="Opcion + a -">
                                                 <label class="form-check-label" for="inlineRadio2">+  a  -</label>
                                             </div>
                                             <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3">
+                                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="Opcion - a +">
                                                 <label class="form-check-label" for="inlineRadio3">-  a  +</label>
                                             </div>
-                                            <button type="button" class="btn btn-success rounded-circle p-0"><i class="bi bi-arrow-repeat p-1"></i></button>
+                                            <button type="submit" class="btn btn-success rounded-circle p-0" id="btn"><i class="bi bi-arrow-repeat p-1" ></i></button>
                                         </div>
+                                        </form>
                                     </div>
                                     <hr class="p-0 m-0">
-                                    <div class="">
-                                    
-                                        <hr class="p-0 m-0">
-                                        <a href="/ordenarFecha" class="btn btn-outline-secondary btn-sm" id="button-addon2">Ordenar circuitos por fecha</a>
-                                        <hr class="p-0 m-0">
-                                        <a href="/ordenarMayorMenor" class="btn btn-outline-secondary btn-sm" id="button-addon2">Ordenar circuitos de Mayor a Menor</a>
-                                        <hr class="p-0 m-0">
-                                        <a href="/ordenarMenorMayor" class="btn btn-outline-secondary btn-sm" id="button-addon2">Ordenar circuitos de Menor a Mayor</a>
-                                        <hr class="p-0 m-0">
-                                    </div>
                                     <div class="table-responsive" >
                                         <table class="table m-0" id="TABLA">
                                             <thead class="text-center bg-light" style="font-size: smaller;">
@@ -166,7 +161,6 @@
                                 <div class="card border-dark bg-transparent mb-3 position-relative">
                                     <div class="card-header text-center bg-light p-1" style="font-size: smaller;">falta titulo</div>
                                     <div class="card-body text-dark p-2 ">
-                                      
                                     </div>
                                 </div>
                             </div>

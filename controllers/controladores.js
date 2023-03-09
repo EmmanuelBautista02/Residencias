@@ -16,6 +16,14 @@ const cinco = [];
 let consumidos = null;
 let idServicio = null;
 let servicioSeleccionado = false;
+let datosProveedorCN = {};
+let datosCircuitoCN = {};
+let datosServiciosCN = {};
+let proveedorSeleccionadoCN=false;
+let nombreProveedorCN = null;
+let idProveedorCN = null;
+let circuitoSeleccionadoCN = false;
+let idCircuitoCN = null;
 
 //RUTA PRINCIPAL YA LOGUEADO
 controller.principal = (req, res) => {
@@ -133,7 +141,8 @@ controller.actualizarBD = (req, res) => {
                                 sesion: true,
                                 dataCircuito: datosCircuito,
                                 dataServicio: datosServicios,
-                                modificar: datosServicioModificar
+                                modificar: datosServicioModificar,
+                                ordenar: ""
                             });
                         }
                     });
@@ -154,7 +163,8 @@ controller.actualizarBD = (req, res) => {
                         sesion: true,
                         dataCircuito: datosCircuito,
                         dataServicio: datosServicios,
-                        modificar: datosServicioModificar
+                        modificar: datosServicioModificar,
+                        ordenar: ""
                     });
                 }
             }
@@ -202,7 +212,8 @@ controller.buscarCircuito = (req, res) => {
                 sesion: true,
                 dataCircuito: datosCircuito,
                 dataServicio: datosServicios,
-                modificar: datosServicioModificar
+                modificar: datosServicioModificar,
+                ordenar: ""
             });
             //SI HAY PROVEEDOR SELECCIONADO
         } else if (proveedorSeleccionado == true) {
@@ -220,7 +231,8 @@ controller.buscarCircuito = (req, res) => {
                     sesion: true,
                     dataCircuito: datosCircuito,
                     dataServicio: datosServicios,
-                    modificar: datosServicioModificar
+                    modificar: datosServicioModificar,
+                    ordenar: ""
                 });
             } else {
                 //SI SI HAY CIRCUITO SELECCIONADO: BANDERA DE CIRCUITO SELECCIONADO EN TRUE.
@@ -249,7 +261,8 @@ controller.buscarCircuito = (req, res) => {
                                 sesion: true,
                                 dataCircuito: datosCircuito,
                                 dataServicio: datosServicios,
-                                modificar: datosServicioModificar
+                                modificar: datosServicioModificar,
+                                ordenar: ""
                             });
                             //SI EXISTE CIRCUITOS ANCLADOS A ESE PROVEEDOR, USUARIO Y HABILITADOS
                         } else {
@@ -265,7 +278,8 @@ controller.buscarCircuito = (req, res) => {
                                 sesion: true,
                                 dataCircuito: datosCircuito,
                                 dataServicio: datosServicios,
-                                modificar: datosServicioModificar
+                                modificar: datosServicioModificar,
+                                ordenar: ""
                             });
                         }
                     }
@@ -316,7 +330,8 @@ controller.listarServicios = (req, res) => {
                                     sesion: true,
                                     dataCircuito: datosCircuito,
                                     dataServicio: datosServicios,
-                                    modificar: datosServicioModificar
+                                    modificar: datosServicioModificar,
+                                    ordenar: ""
                                 });
                             }
                         });
@@ -334,7 +349,8 @@ controller.listarServicios = (req, res) => {
                             sesion: true,
                             dataCircuito: datosCircuito,
                             dataServicio: datosServicios,
-                            modificar: datosServicioModificar
+                            modificar: datosServicioModificar,
+                            ordenar: ""
                         });
                     }
                     //SI EL CIRCUITO SELECCIONADO NO ESTÁ HABILITADP
@@ -351,7 +367,8 @@ controller.listarServicios = (req, res) => {
                         sesion: true,
                         dataCircuito: datosCircuito,
                         dataServicio: datosServicios,
-                        modificar: datosServicioModificar
+                        modificar: datosServicioModificar,
+                        ordenar: ""
                     });
                 }
             }
@@ -378,7 +395,8 @@ controller.listarServiciosNoExisten = (req, res) => {
             sesion: true,
             dataCircuito: datosCircuito,
             dataServicio: datosServicios,
-            modificar: datosServicioModificar
+            modificar: datosServicioModificar,
+            ordenar: ""
         });
         //SI NO EXISTE SESIÓN ACTIVA
     } else {
@@ -470,7 +488,8 @@ controller.agregarCircuito = (req, res) => {
                         sesion: true,
                         dataCircuito: datosCircuito,
                         dataServicio: datosServicios,
-                        modificar: datosServicioModificar
+                        modificar: datosServicioModificar,
+                        ordenar: ""
                     });
                     //SI EL CIRCUITO NO EXISTE, LO AGREGA A LA BD
                 } else {
@@ -492,7 +511,8 @@ controller.agregarCircuito = (req, res) => {
                 sesion: true,
                 dataCircuito: datosCircuito,
                 dataServicio: datosServicios,
-                modificar: datosServicioModificar
+                modificar: datosServicioModificar,
+                ordenar: ""
             });
         }
         //SI NO EXISTE SESIÓN ACTIVA 
@@ -548,7 +568,8 @@ controller.agregarServicio = (req, res) => {
                         sesion: true,
                         dataCircuito: datosCircuito,
                         dataServicio: datosServicios,
-                        modificar: datosServicioModificar
+                        modificar: datosServicioModificar,
+                        ordenar: ""
                     });
                 } else {
                     //SI NO EXISTE SERVICIO, SELECCIONAR LOS SERVICIOS DEL CIRCUITO SELECCIONADO
@@ -579,11 +600,14 @@ controller.agregarServicio = (req, res) => {
                 sesion: true,
                 dataCircuito: datosCircuito,
                 dataServicio: datosServicios,
-                modificar: datosServicioModificar
+                modificar: datosServicioModificar,
+                ordenar: ""
             });
         }
         //SI NO HAY SESION ACTIVA
-    } else {
+        circuitoSeleccionado = false;
+    }
+    else {
         res.redirect('/');
     }
 }
@@ -620,10 +644,11 @@ controller.modificarServicio = (req, res) => {
         //SI HAY SERVICIO SELECCIONADO
         if (servicioSeleccionado) {
             //OBTIENES LOS NUEVOS DATOS A MODIFICAR
+            let nombreNuevo = req.body.nombre;
             let m6Nuevo = req.body.m6;
             let idActivo = req.body.id_act;
             //QUERY PARA MODIFICAR SERVICIO
-            connection.query('UPDATE servicio SET m6=?, id_act=? where id_serv=?', [m6Nuevo, idActivo, idServicio], (error, resultado) => {
+            connection.query('UPDATE servicio SET nombre_serv=?, m6=?, id_act=? where id_serv=?', [nombreNuevo, m6Nuevo, idActivo, idServicio], (error, resultado) => {
                 //SI HAY ERROR, MANDAR PÁGINA EN JSON
                 if (error) {
                     return res.json(error);
@@ -649,9 +674,11 @@ controller.modificarServicio = (req, res) => {
                 sesion: true,
                 dataCircuito: datosCircuito,
                 dataServicio: datosServicios,
-                modificar: datosServicioModificar
+                modificar: datosServicioModificar,
+                ordenar: ""
             });
         }
+        servicioSeleccionado = false;
         //SI NO HAY SESIÓN ACTIVA
     } else {
         res.redirect('/');
@@ -686,7 +713,8 @@ controller.mostrarServicio = (req, res) => {
                     sesion: true,
                     dataCircuito: datosCircuito,
                     dataServicio: datosServicios,
-                    modificar: datosServicioModificar
+                    modificar: datosServicioModificar,
+                    ordenar: ""
                 });
             }
         });
@@ -696,23 +724,130 @@ controller.mostrarServicio = (req, res) => {
     }
 }
 
-//MÉTODO PARA ABRIR PÁGINA DE CREAR NOTIFICACIÓN
-controller.crearN = (req, res) => {
+//ordenar Circuitos
+controller.ordenar = (req, res) => {
     //SI EXISTE SESION ACTIVA
     if (req.session.loggedin) {
-        return res.render('crearN/crearN');
-    }
-    //SI EXISTE SESION ACTIVA
-    else {
-        res.redirect('/');
-    }
-}
+        let radio = req.body.inlineRadioOptions;
+        if (proveedorSeleccionado) {
+            if (radio != null) {
+                let radio = req.body.inlineRadioOptions;
+                if (radio == 'Opcion Fecha') {
+                    connection.query('SELECT * FROM circuito where id_prov = ? AND cir_Habilitado =1 order by fecha desc', [idProveedor], (error, results) => {
+                        if (error) {
+                            return res.json(error);
+                        } else {
+                            //GUARDA RESULTADOS DE LOS CIRCUITOS. lIMPIA LOS DATOS DEL SERVICIO 
+                            //PONE BANDERA DE PROVEEDOR SELECCIONADO EN TRUE
+                            datosCircuito = results;
+                            datosServicios = {};
+                            proveedorSeleccionado = true;
+                            //RENDERIZA VENTANA DE ACTUALIZAR BD Y MANDA DATOS AL FRONT
+                            return res.render('actualizar/actualizar', {
+                                data: datosProveedor,
+                                proveedor: nombreProveedor,
+                                mensaje: "",
+                                cir: "",
+                                login: true,
+                                name: req.session.name,
+                                nombre: req.session.name,
+                                sesion: true,
+                                dataCircuito: datosCircuito,
+                                dataServicio: datosServicios,
+                                modificar: datosServicioModificar,
+                                ordenar: radio
+                            });
+                        }
+                    });
+                } else if (radio == 'Opcion + a -') {
+                    connection.query('SELECT * FROM circuito where id_prov = ? AND cir_Habilitado =1 order by id_cir desc', [idProveedor], (error, results) => {
+                        if (error) {
+                            return res.json(error);
+                        } else {
+                            //GUARDA RESULTADOS DE LOS CIRCUITOS. lIMPIA LOS DATOS DEL SERVICIO 
+                            //PONE BANDERA DE PROVEEDOR SELECCIONADO EN TRUE
+                            datosCircuito = results;
+                            datosServicios = {};
+                            proveedorSeleccionado = true;
+                            //RENDERIZA VENTANA DE ACTUALIZAR BD Y MANDA DATOS AL FRONT
+                            return res.render('actualizar/actualizar', {
+                                data: datosProveedor,
+                                proveedor: nombreProveedor,
+                                mensaje: "",
+                                cir: "",
+                                login: true,
+                                name: req.session.name,
+                                nombre: req.session.name,
+                                sesion: true,
+                                dataCircuito: datosCircuito,
+                                dataServicio: datosServicios,
+                                modificar: datosServicioModificar,
+                                ordenar: radio
+                            });
+                        }
+                    });
+                } else if (radio == 'Opcion - a +') {
+                    connection.query('SELECT * FROM circuito where id_prov = ? AND cir_Habilitado =1', [idProveedor], (error, results) => {
+                        if (error) {
+                            return res.json(error);
+                        } else {
+                            //GUARDA RESULTADOS DE LOS CIRCUITOS. lIMPIA LOS DATOS DEL SERVICIO 
+                            //PONE BANDERA DE PROVEEDOR SELECCIONADO EN TRUE
+                            datosCircuito = results;
+                            datosServicios = {};
+                            proveedorSeleccionado = true;
+                            //RENDERIZA VENTANA DE ACTUALIZAR BD Y MANDA DATOS AL FRONT
+                            return res.render('actualizar/actualizar', {
+                                data: datosProveedor,
+                                proveedor: nombreProveedor,
+                                mensaje: "",
+                                cir: "",
+                                login: true,
+                                name: req.session.name,
+                                nombre: req.session.name,
+                                sesion: true,
+                                dataCircuito: datosCircuito,
+                                dataServicio: datosServicios,
+                                modificar: datosServicioModificar,
+                                ordenar: radio
+                            });
+                        }
+                    });
+                }
+            } else {
+                return res.render('actualizar/actualizar', {
+                    data: datosProveedor,
+                    proveedor: nombreProveedor,
+                    mensaje: "ESCOGE UNA OPCION A ORDENAR",
+                    cir: "",
+                    login: true,
+                    name: req.session.name,
+                    nombre: req.session.name,
+                    sesion: true,
+                    dataCircuito: datosCircuito,
+                    dataServicio: datosServicios,
+                    modificar: datosServicioModificar,
+                    ordenar: ""
+                });
+            }
+        } else {
+            return res.render('actualizar/actualizar', {
+                data: datosProveedor,
+                proveedor: nombreProveedor,
+                mensaje: "SELECCIONA PROVEEDOR",
+                cir: "",
+                login: true,
+                name: req.session.name,
+                nombre: req.session.name,
+                sesion: true,
+                dataCircuito: datosCircuito,
+                dataServicio: datosServicios,
+                modificar: datosServicioModificar,
+                ordenar: ""
+            });
+        }
 
-//MÉTODO PARA ABRIR PÁGINA DE LISTAR NOTIFICACIONES
-controller.notificaciones = (req, res) => {
-    //SI EXISTE SESION ACTIVA
-    if (req.session.loggedin) {
-        return res.render('notificaciones/notificaciones');
+
     }
     //SI NO EXISTE SESION ACTIVA
     else {
@@ -743,50 +878,193 @@ controller.mostrarCircuitosTodos = (req, res) => {
     }
 }
 
-controller.ordenarFecha=(req,res)=>{
-    //SI EXISTE SESION ACTIVA
+//MÉTODO PARA ABRIR PÁGINA DE CREAR NOTIFICACIÓN
+controller.crearN = (req, res) => {
+     //SI HAY SESION INICIADA
     if (req.session.loggedin) {
-        if(proveedorSeleccionado==true){
-            connection.query('SELECT * FROM circuito where id_prov = ? AND cir_Habilitado =1 order by fecha desc', [idProveedor], (error, results) => {
-                if (error) {
-                    return res.json(error);
+        //SELECCIONA TODOS LOS PROVEEDORES DEL USUARIO QUE HA INICIADO SESIÓN
+        connection.query('SELECT * FROM proveedor where id_usuario = ?', [id_Usuario], (error, results1) => {
+            //GUARDAR DATOS DE LOS PROVEEDORES EN EL BACK
+            datosProveedorCN = results1;
+            //console.log(datos);
+            //SI HAY ERROR MOSTRARLO EN UN JSON
+            if (error) {
+                return res.json(error)
+            } else {
+                //SI EXISTE UN ID DEL PROVEEDOR CONSULTA SUS CIRCUITOS, SIEMPRE Y CUANDO ESTEN
+                //HABILITADOS
+                if (idProveedorCN != null) {
+                    connection.query('SELECT * FROM circuito where id_prov = ? AND cir_Habilitado =1 order by fecha desc', [idProveedorCN], (error, results) => {
+                        if (error) {
+                            return res.json(error);
+                        } else {
+                            //GUARDA RESULTADOS DE LOS CIRCUITOS. lIMPIA LOS DATOS DEL SERVICIO 
+                            //PONE BANDERA DE PROVEEDOR SELECCIONADO EN TRUE
+                            datosCircuitoCN = results;
+                            datosServiciosCN = {};
+                            proveedorSeleccionadoCN = true;
+                            //RENDERIZA VENTANA DE ACTUALIZAR BD Y MANDA DATOS AL FRONT
+                            return res.render('crearN/crearN', {
+                                data: results1,
+                                proveedor: nombreProveedorCN,
+                                mensaje: "",
+                                cir: "",
+                                login: true,
+                                name: req.session.name,
+                                nombre: req.session.name,
+                                sesion: true,
+                                dataCircuito: datosCircuitoCN,
+                                dataServicio: datosServiciosCN,
+                                ordenar: ""
+                            });
+                        }
+                    });
+                    //SI NO EXISTE PROVEEDOR. lIMPIAR DATOS DE LOS SERVICIOS. BANDERA DE PROVEEDOR SELECCIONADO
+                    //EN FALSE
                 } else {
-                    //GUARDA RESULTADOS DE LOS CIRCUITOS. lIMPIA LOS DATOS DEL SERVICIO 
-                    //PONE BANDERA DE PROVEEDOR SELECCIONADO EN TRUE
-                    datosCircuito = results;
                     datosServicios = {};
-                    proveedorSeleccionado = true;
+                    proveedorSeleccionado = false;
                     //RENDERIZA VENTANA DE ACTUALIZAR BD Y MANDA DATOS AL FRONT
-                    return res.render('actualizar/actualizar', {
-                        data: datosProveedor,
-                        proveedor: nombreProveedor,
+                    return res.render('crearN/crearN', {
+                        data: results1,
+                        proveedor: "Proveedor seleccionado",
                         mensaje: "",
                         cir: "",
                         login: true,
                         name: req.session.name,
                         nombre: req.session.name,
                         sesion: true,
-                        dataCircuito: datosCircuito,
-                        dataServicio: datosServicios,
-                        modificar: datosServicioModificar
+                        dataCircuito: datosCircuitoCN,
+                        dataServicio: datosServiciosCN,
+                        ordenar: ""
                     });
                 }
-            });
-        }else{
-            return res.render('actualizar/actualizar', {
-                data: datosProveedor,
-                proveedor: nombreProveedor,
-                mensaje: "SELECCIONA PROVEEDOR",
+            }
+        })
+        //SI NO HAY SESIÓN ACTIVA
+    } else {
+        res.redirect('/');
+    }
+}
+
+controller.buscarProveedorCN = (req, res) => {
+    //SI EXISTE SESION ACTIVA
+    if (req.session.loggedin) {
+        //GUARDA ID DEL PROVEEDOR 
+        idProveedorCN = req.body.proveedor;
+        //SELECCIONA EL NOMBRE DEL PROVEEDOR
+        connection.query('SELECT nombre_prov FROM proveedor where id_prov = ?', [idProveedorCN], (error, results) => {
+            //GUARDA EL NOMBRE DEL PROVEEDOR
+            nombreProveedorCN = results[0].nombre_prov;
+        });
+        //REDIRECCIONA A PÁGINA ACTUALIZAR BD
+        res.redirect('/crearN');
+        //SI NO HAY SESIÓN ACTIVA
+    } else {
+        res.redirect('/');
+    }
+}
+
+//MÉTODO PARA BUSCAR EL CIRCUITO
+controller.buscarCircuitoCN = (req, res) => {
+    //SI HAY SESIÓN ACTIVA
+    if (req.session.loggedin) {
+        //SI NO HAY PROVEEDOR SELECCIONADO
+        if (proveedorSeleccionadoCN == false) {
+            //RENDERIZA VENTANA DE ACTUALIZAR BD Y MANDA DATOS AL FRONT
+            res.render('crearN/crearN', {
+                proveedor: "Proveedor seleccionado",
+                data: datosProveedorCN,
+                mensaje: "FAVOR DE SELECCIONAR UN PROVEEDOR",
                 cir: "",
                 login: true,
                 name: req.session.name,
                 nombre: req.session.name,
                 sesion: true,
-                dataCircuito: datosCircuito,
-                dataServicio: datosServicios,
-                modificar: datosServicioModificar
-            });        
+                dataCircuito: datosCircuitoCN,
+                dataServicio: datosServiciosCN,
+                ordenar: ""
+            });
+            //SI HAY PROVEEDOR SELECCIONADO
+        } else if (proveedorSeleccionadoCN == true) {
+            //SI NO HAY CIRCUITO SELECCIONADO
+            if (req.body.circuito.length === 0) {
+                //RENDERIZA VENTANA DE ACTUALIZAR BD Y MANDA DATOS AL FRONT
+                res.render('crearN/crearN', {
+                    proveedor: nombreProveedorCN,
+                    data: datosProveedorCN,
+                    mensaje: "FAVOR DE ESCRIBIR UN CIRCUITO",
+                    cir: "",
+                    login: true,
+                    name: req.session.name,
+                    nombre: req.session.name,
+                    sesion: true,
+                    dataCircuito: datosCircuitoCN,
+                    dataServicio: datosServiciosCN,
+                    ordenar: ""
+                });
+            } else {
+                //SI SI HAY CIRCUITO SELECCIONADO: BANDERA DE CIRCUITO SELECCIONADO EN TRUE.
+                //SE GUARDA ID DEL CIRCUITO
+                circuitoSeleccionadoCN = true;
+                idCircuitoCN = req.body.circuito;
+                //SE REALIZA CONSULTA DE LOS CIRCUITOS ANCLADOS AL PROVEEDOR, AL USUARIO Y QUE ESTEN
+                //HABILITADOS
+                connection.query('SELECT * FROM circuito where id_prov = ? AND id_cir = ? AND cir_Habilitado =1', [idProveedorCN, parseInt(idCircuitoCN, 10)], (error, results) => {
+                    //SI HAY ERROR MANDA PÁGINA EN JSON
+                    if (error) {
+                        res.json(error)
+                    } else {
+                        //SI NO HAY ERROR
+                        //SI NO EXISTE CIRCUITOS ANCLADOS A ESE PROVEEDOR, USUARIO Y HABILITADOS
+                        if (results.length === 0) {
+                            //RENDERIZA VENTANA DE ACTUALIZAR BD Y MANDA DATOS AL FRONT
+                            res.render('crearN/crearN', {
+                                proveedor: nombreProveedorCN,
+                                data: datosProveedorCN,
+                                mensaje: "NO EXISTE NINGUN CIRCUITO CON ESA ID, VAYA A LA PÁGINA 'Actualizar BD' para crear un nuevo circuito",
+                                cir: idCircuitoCN,
+                                login: true,
+                                name: req.session.name,
+                                nombre: req.session.name,
+                                sesion: true,
+                                dataCircuito: datosCircuitoCN,
+                                dataServicio: datosServiciosCN,
+                                ordenar: ""
+                            });
+                            //SI EXISTE CIRCUITOS ANCLADOS A ESE PROVEEDOR, USUARIO Y HABILITADOS
+                        } else {
+                            //RENDERIZA VENTANA DE ACTUALIZAR BD Y MANDA DATOS AL FRONT
+                            res.render('crearN/crearN', {
+                                proveedor: nombreProveedorCN,
+                                data: datosProveedorCN,
+                                mensaje: "CIRCUITO SELECCIONADO",
+                                cir: idCircuitoCN,
+                                login: true,
+                                name: req.session.name,
+                                nombre: req.session.name,
+                                sesion: true,
+                                dataCircuito: datosCircuitoCN,
+                                dataServicio: datosServiciosCN,
+                                ordenar: ""
+                            });
+                        }
+                    }
+                });
+            }
         }
+
+    }//SI NO HAY SESIÓN ACTIVA
+    else {
+        res.redirect('/');
+    }
+}
+
+//MÉTODO PARA ABRIR PÁGINA DE LISTAR NOTIFICACIONES
+controller.notificaciones = (req, res) => {
+    //SI EXISTE SESION ACTIVA
+    if (req.session.loggedin) {
+        return res.render('notificaciones/notificaciones');
     }
     //SI NO EXISTE SESION ACTIVA
     else {
@@ -794,50 +1072,124 @@ controller.ordenarFecha=(req,res)=>{
     }
 }
 
-controller.ordenarMenorMayor=(req,res)=>{
+controller.ordenarCN = (req, res) => {
     //SI EXISTE SESION ACTIVA
     if (req.session.loggedin) {
-        if(proveedorSeleccionado==true){
-            connection.query('SELECT * FROM circuito where id_prov = ? AND cir_Habilitado =1', [idProveedor], (error, results) => {
-                if (error) {
-                    return res.json(error);
-                } else {
-                    //GUARDA RESULTADOS DE LOS CIRCUITOS. lIMPIA LOS DATOS DEL SERVICIO 
-                    //PONE BANDERA DE PROVEEDOR SELECCIONADO EN TRUE
-                    datosCircuito = results;
-                    datosServicios = {};
-                    proveedorSeleccionado = true;
-                    //RENDERIZA VENTANA DE ACTUALIZAR BD Y MANDA DATOS AL FRONT
-                    return res.render('actualizar/actualizar', {
-                        data: datosProveedor,
-                        proveedor: nombreProveedor,
-                        mensaje: "",
-                        cir: "",
-                        login: true,
-                        name: req.session.name,
-                        nombre: req.session.name,
-                        sesion: true,
-                        dataCircuito: datosCircuito,
-                        dataServicio: datosServicios,
-                        modificar: datosServicioModificar
+        let radio = req.body.inlineRadioOptions;
+        if (proveedorSeleccionadoCN) {
+            if (radio != null) {
+                let radio = req.body.inlineRadioOptions;
+                if (radio == 'Opcion Fecha') {
+                    connection.query('SELECT * FROM circuito where id_prov = ? AND cir_Habilitado =1 order by fecha desc', [idProveedorCN], (error, results) => {
+                        if (error) {
+                            return res.json(error);
+                        } else {
+                            //GUARDA RESULTADOS DE LOS CIRCUITOS. lIMPIA LOS DATOS DEL SERVICIO 
+                            //PONE BANDERA DE PROVEEDOR SELECCIONADO EN TRUE
+                            datosCircuitoCN = results;
+                            datosServiciosCN = {};
+                            proveedorSeleccionadoCN = true;
+                            //RENDERIZA VENTANA DE ACTUALIZAR BD Y MANDA DATOS AL FRONT
+                            return res.render('crearN/crearN', {
+                                data: datosProveedorCN,
+                                proveedor: nombreProveedorCN,
+                                mensaje: "",
+                                cir: "",
+                                login: true,
+                                name: req.session.name,
+                                nombre: req.session.name,
+                                sesion: true,
+                                dataCircuito: datosCircuitoCN,
+                                dataServicio: datosServiciosCN,
+                                ordenar: radio
+                            });
+                        }
+                    });
+                } else if (radio == 'Opcion + a -') {
+                    connection.query('SELECT * FROM circuito where id_prov = ? AND cir_Habilitado =1 order by id_cir desc', [idProveedorCN], (error, results) => {
+                        if (error) {
+                            return res.json(error);
+                        } else {
+                            //GUARDA RESULTADOS DE LOS CIRCUITOS. lIMPIA LOS DATOS DEL SERVICIO 
+                            //PONE BANDERA DE PROVEEDOR SELECCIONADO EN TRUE
+                            datosCircuitoCN = results;
+                            datosServiciosCN = {};
+                            proveedorSeleccionadoCN = true;
+                            //RENDERIZA VENTANA DE ACTUALIZAR BD Y MANDA DATOS AL FRONT
+                            return res.render('crearN/crearN', {
+                                data: datosProveedorCN,
+                                proveedor: nombreProveedorCN,
+                                mensaje: "",
+                                cir: "",
+                                login: true,
+                                name: req.session.name,
+                                nombre: req.session.name,
+                                sesion: true,
+                                dataCircuito: datosCircuitoCN,
+                                dataServicio: datosServiciosCN,
+                                ordenar: radio
+                            });
+                        }
+                    });
+                } else if (radio == 'Opcion - a +') {
+                    connection.query('SELECT * FROM circuito where id_prov = ? AND cir_Habilitado =1', [idProveedorCN], (error, results) => {
+                        if (error) {
+                            return res.json(error);
+                        } else {
+                            //GUARDA RESULTADOS DE LOS CIRCUITOS. lIMPIA LOS DATOS DEL SERVICIO 
+                            //PONE BANDERA DE PROVEEDOR SELECCIONADO EN TRUE
+                            datosCircuitoCN = results;
+                            datosServiciosCN = {};
+                            proveedorSeleccionadoCN = true;
+                            //RENDERIZA VENTANA DE ACTUALIZAR BD Y MANDA DATOS AL FRONT
+                            return res.render('crearN/crearN', {
+                                data: datosProveedorCN,
+                                proveedor: nombreProveedorCN,
+                                mensaje: "",
+                                cir: "",
+                                login: true,
+                                name: req.session.name,
+                                nombre: req.session.name,
+                                sesion: true,
+                                dataCircuito: datosCircuitoCN,
+                                dataServicio: datosServiciosCN,
+                                ordenar: radio
+                            });
+                        }
                     });
                 }
-            });
-        }else{
-            return res.render('actualizar/actualizar', {
-                data: datosProveedor,
-                proveedor: nombreProveedor,
+            } else {
+                return res.render('crearN/crearN', {
+                    data: datosProveedorCN,
+                    proveedor: nombreProveedorCN,
+                    mensaje: "ESCOGE UNA OPCION A ORDENAR",
+                    cir: "",
+                    login: true,
+                    name: req.session.name,
+                    nombre: req.session.name,
+                    sesion: true,
+                    dataCircuito: datosCircuitoCN,
+                    dataServicio: datosServiciosCN,
+                    ordenar: ""
+                });
+            }
+        } else {
+            return res.render('crearN/crearN', {
+                data: datosProveedorCN,
+                proveedor: nombreProveedorCN,
                 mensaje: "SELECCIONA PROVEEDOR",
                 cir: "",
                 login: true,
                 name: req.session.name,
                 nombre: req.session.name,
                 sesion: true,
-                dataCircuito: datosCircuito,
-                dataServicio: datosServicios,
-                modificar: datosServicioModificar
-            });        
+                dataCircuito: datosCircuitoCN,
+                dataServicio: datosServiciosCN,
+                ordenar: ""
+            });
         }
+
+
     }
     //SI NO EXISTE SESION ACTIVA
     else {
@@ -845,55 +1197,6 @@ controller.ordenarMenorMayor=(req,res)=>{
     }
 }
 
-controller.ordenarMayorMenor=(req,res)=>{
-    //SI EXISTE SESION ACTIVA
-    if (req.session.loggedin) {
-        if(proveedorSeleccionado==true){
-            connection.query('SELECT * FROM circuito where id_prov = ? AND cir_Habilitado =1 order by id_cir desc', [idProveedor], (error, results) => {
-                if (error) {
-                    return res.json(error);
-                } else {
-                    //GUARDA RESULTADOS DE LOS CIRCUITOS. lIMPIA LOS DATOS DEL SERVICIO 
-                    //PONE BANDERA DE PROVEEDOR SELECCIONADO EN TRUE
-                    datosCircuito = results;
-                    datosServicios = {};
-                    proveedorSeleccionado = true;
-                    //RENDERIZA VENTANA DE ACTUALIZAR BD Y MANDA DATOS AL FRONT
-                    return res.render('actualizar/actualizar', {
-                        data: datosProveedor,
-                        proveedor: nombreProveedor,
-                        mensaje: "",
-                        cir: "",
-                        login: true,
-                        name: req.session.name,
-                        nombre: req.session.name,
-                        sesion: true,
-                        dataCircuito: datosCircuito,
-                        dataServicio: datosServicios,
-                        modificar: datosServicioModificar
-                    });
-                }
-            });
-        }else{
-            return res.render('actualizar/actualizar', {
-                data: datosProveedor,
-                proveedor: nombreProveedor,
-                mensaje: "SELECCIONA PROVEEDOR",
-                cir: "",
-                login: true,
-                name: req.session.name,
-                nombre: req.session.name,
-                sesion: true,
-                dataCircuito: datosCircuito,
-                dataServicio: datosServicios,
-                modificar: datosServicioModificar
-            });        
-        }
-    }
-    //SI NO EXISTE SESION ACTIVA
-    else {
-        res.redirect('/');
-    }
-}
+
 //MÉTODO PARA EXPORTAR LOS MÉTODOS
 module.exports = controller;

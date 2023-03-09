@@ -24,8 +24,9 @@ router.get('/eliminarServicio/:id', controller.eliminarServicio);
 router.post('/modificarServicio/', controller.modificarServicio);
 router.get('/mostrarServicio/:id', controller.mostrarServicio);
 router.get('/mostrarCircuitosTodos', controller.mostrarCircuitosTodos);
-router.get('/ordenarFecha', controller.ordenarFecha);
-router.get('/ordenarMayorMenor', controller.ordenarMayorMenor);
-router.get('/ordenarMenorMayor', controller.ordenarMenorMayor);
+router.post('/ordenar', controller.ordenar);
+router.post('/buscarProveedorCN',controller.buscarProveedorCN);
+router.post('/buscarCircuitoCN', controller.buscarCircuitoCN);
+router.post('/ordenarCN', controller.ordenarCN);
 
 module.exports = router;
