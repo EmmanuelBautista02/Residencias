@@ -1,5 +1,5 @@
 <title>Actualizar BD</title>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js">
+<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js">-->
 </script>
 <div>
     <!--Link de css de bootstrap viene de lateral-->
@@ -28,7 +28,7 @@
                                     <div>
                                         <label for="BuscarElProveedor" class="form-label m-0 mb-1">Seleccionar proveedor:</label>
                                     </div>
-                                    <select class="form-select form-select-sm w-100" aria-label=" .form-select-lg"
+                                    <select class="form-select form-select-sm w-100" aria-label=".form-select-lg"
                                         name="proveedor" id="proveedor">
                                         <% if (data) { %>
                                             <% for (var i=0; i < data.length; i++) {%>
@@ -144,7 +144,7 @@
                                         </div>
                                         </form>
                                     </div>
-                                    <hr class="p-0 m-0">
+                                    
                                     <div class="table-responsive" >
                                         <table class="table m-0" id="TABLA">
                                             <thead class="text-center bg-light" style="font-size: smaller;">
@@ -241,7 +241,7 @@
                             </div>
                             <div class="col-md-5 p-1"><!--Seccion opciones a servicios-->
                                 <div class="card border-dark bg-transparent mb-3 position-relative">
-                                    <div class="card-header text-center bg-light p-1" style="font-size: smaller;">Ejecutar acciones para servicios</div>
+                                    <div class="card-header text-center bg-light p-1">Ejecutar acciones para servicios</div>
                                     <div class="card-body text-dark p-2 ">
                                         <ul class="nav nav-tabs" id="myTab" role="tablist">
                                             <li class="nav-item" role="presentation">
@@ -325,7 +325,7 @@
                     </div>
                 </div>
             </div>
-</div>
+</div> 
 </section>
 
 </div><!--Div de cerrar row de contenido de lateral-->
